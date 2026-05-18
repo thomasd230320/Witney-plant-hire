@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hire Basket | Witney Plant Hire Ltd</title>
+  <meta name="description" content="Review your hire basket, see prices, sign the hire agreement and send your enquiry to Witney Plant Hire Ltd." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="utility-bar">
+    <div class="container">
+      <span class="tel">Tel. 01993 708020</span>
+      <ul class="utility-links">
+        <li><a href="cookie-policy.html">Cookie Policy</a></li>
+        <li><a href="sitemap.html">Sitemap</a></li>
+        <li><a href="account-form.html">Account Form</a></li>
+        <li><a href="https://www.cpa.uk.net/" rel="noopener">CPA</a></li>
+        <li><a href="https://www.facebook.com/" rel="noopener" aria-label="Facebook"><span class="fb-icon" aria-hidden="true">f</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="index.html" aria-label="Witney Plant Hire Ltd home">
+        <span class="chevrons" aria-hidden="true"><span>&raquo;</span><span>&raquo;</span><span>&raquo;</span></span>
+        <span class="wordmark">Witney Plant Hire <sup>LTD</sup></span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav">
+        <span></span>
+      </button>
+      <nav class="main-nav" aria-label="Primary">
+        <ul id="primary-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="plant-hire.html">Plant</a></li>
+          <li><a href="tool-hire.html">Tool</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a class="nav-basket active" href="basket.html">Basket <span class="basket-count" data-basket-count aria-label="items in basket">0</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero interior">
+      <img src="https://placehold.co/1600x300?text=Hire+Basket" alt="Witney Plant Hire online hire basket" />
+      <div class="hero-title"><h1>Hire Basket</h1></div>
+    </section>
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <div class="container">
+        <ol>
+          <li><a href="index.html">Home</a></li>
+          <li>Hire Basket</li>
+        </ol>
+      </div>
+    </nav>
+
+    <section class="intro">
+      <div class="container">
+        <div class="intro-inner">
+          <h1>Your Hire Basket</h1>
+          <p class="subhead">Review &middot; Sign In &middot; Sign Agreement &middot; Send</p>
+          <p>Add equipment from our <a href="plant-hire.html">plant</a>, <a href="tool-hire.html">tool</a> and <a href="services.html">services</a> pages, choose your hire period, sign the agreement and send your enquiry. Stock figures shown are sample data standing in for the inspHire fleet system &mdash; this is a demo, so no email is sent and no payment is taken.</p>
+        </div>
+
+        <div id="basket-page">
+          <section class="checkout-step">
+            <h2><span class="step-num">1</span> Your Hire Basket</h2>
+            <div id="basket-contents"></div>
+          </section>
+
+          <section class="checkout-step">
+            <h2><span class="step-num">2</span> Sign In</h2>
+            <p>Sign in with your email so we know who the enquiry is from. <em>Demo sign-in &mdash; any password is accepted and nothing is stored on a server.</em></p>
+            <form class="signin-form" id="signin-form" novalidate>
+              <label for="signin-email">Email address</label>
+              <input type="email" id="signin-email" name="email" autocomplete="email" required />
+              <label for="signin-password">Password</label>
+              <input type="password" id="signin-password" name="password" autocomplete="current-password" />
+              <p class="field-error" id="signin-error" hidden></p>
+              <button type="submit" class="btn">Sign In</button>
+            </form>
+            <div class="signed-in-panel" id="signed-in" hidden>
+              <span>Signed in as <strong id="user-email"></strong></span>
+              <button type="button" class="remove-btn" id="signout-btn">Sign out</button>
+            </div>
+          </section>
+
+          <section class="checkout-step">
+            <h2><span class="step-num">3</span> Hire Agreement</h2>
+            <div class="agreement-text">
+              <p>All equipment is hired under the Construction Plant-hire Association (CPA) Model Conditions for the Hiring of Plant. By signing below the Hirer agrees that:</p>
+              <p>1. The Hirer is responsible for the equipment from delivery until collection, including against loss, theft and damage.<br />
+              2. The equipment must be used only by competent, trained operators and for its intended purpose.<br />
+              3. Hire charges run for the agreed period; the minimum hire period is one day.<br />
+              4. The Hirer will allow safe access for delivery, inspection and collection.<br />
+              5. Quoted figures are estimates excluding VAT, delivery, fuel and insurance, and are confirmed by Witney Plant Hire Ltd before hire commences.</p>
+              <p>This online agreement records intent to hire and is confirmed by our hire desk before any equipment leaves our yard.</p>
+            </div>
+            <div class="sig-fields">
+              <label for="sig-name">Signatory full name</label>
+              <input type="text" id="sig-name" autocomplete="name" />
+              <label class="sig-check"><input type="checkbox" id="sig-agree" /> <span>I have read and agree to the CPA hire terms and conditions above.</span></label>
+            </div>
+            <div class="sig-tabs" role="tablist">
+              <button type="button" data-sigtab="draw" class="active">Draw signature</button>
+              <button type="button" data-sigtab="type">Type name</button>
+            </div>
+            <div id="sig-draw">
+              <div class="sig-pad">
+                <canvas id="sig-canvas" aria-label="Signature drawing pad"></canvas>
+              </div>
+              <div class="sig-pad-actions">
+                <button type="button" class="remove-btn" id="sig-clear">Clear signature</button>
+              </div>
+            </div>
+            <div id="sig-type" hidden>
+              <p class="sig-type-note">Your typed name above will be used as your electronic signature once the agreement box is ticked.</p>
+            </div>
+          </section>
+
+          <section class="checkout-step">
+            <h2><span class="step-num">4</span> Send Enquiry</h2>
+            <p id="send-hint"></p>
+            <button type="button" id="send-enquiry" class="btn" disabled>Send Hire Enquiry</button>
+          </section>
+
+          <div id="confirmation" class="confirmation" hidden></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>Latest News</h3>
+          <ul class="footer-news">
+            <li><a href="news.html">Witney screening to a better future</a></li>
+            <li><a href="news.html">R580 V8 SCANIA at Witney Plant Commercial</a></li>
+            <li><a href="news.html">New Arrivals - Nifty LiftHR17 and HR12</a></li>
+            <li><a href="news.html">Plant Hire £1.5 Million Investment in Oxfordshire</a></li>
+            <li><a href="news.html">Oxfordshire Aggregate and Muckaway Solutions</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Apply for an Account</h3>
+          <p>Open a trade account with Witney Plant Hire Ltd and enjoy a streamlined hiring service.</p>
+          <a class="btn" href="account-form.html">Click Here</a>
+        </div>
+        <div>
+          <h3>Witney Plant Ltd</h3>
+          <address>
+            Units 7 &amp; 8, Avenue 3<br />
+            Station Lane<br />
+            Witney<br />
+            Oxfordshire, OX28 4BP,<br />
+            United Kingdom<br />
+            Tel. <a href="tel:+441993708020">+44 (0)1993 708020</a><br />
+            Email: <a href="mailto:enquiries@witneyplanthire.com">enquiries@witneyplanthire.com</a>
+          </address>
+        </div>
+      </div>
+    </div>
+    <div class="sub-footer">
+      <p class="tagline">Mechanical Plant &amp; Tool Hire Equipment in Oxfordshire, UK</p>
+      <p>Witney Plant Hire &copy;2026</p>
+      <p>Website by Swanky Pixels &nbsp;|&nbsp; Photography by Peter Haken</p>
+    </div>
+  </footer>
+
+  <script src="data/inventory.js"></script>
+  <script src="basket.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
