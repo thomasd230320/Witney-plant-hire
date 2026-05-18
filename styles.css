@@ -1,46 +1,47 @@
 /* ===================================================================
    Witney Plant Hire Ltd — site styles
-   Redesign: palette built around RAL 6004 Blue-Green (#1F3A3D)
+   Overhaul per ui-ux-pro-max: Exaggerated Minimalism
+   Palette: industrial slate + safety orange · single accent
    =================================================================== */
 
 :root {
-  /* Brand — RAL 6004 Blue-Green family */
-  --brand: #1F3A3D;
-  --brand-deep: #142729;
-  --brand-mid: #356065;
-  --brand-soft: #E4EDEA;
+  /* Industrial slate — near-black canvas, dark UI, headings */
+  --brand: #1E293B;
+  --brand-deep: #0F172A;
+  --brand-mid: #64748B;
+  --brand-soft: #E2E8F0;
 
-  /* Warm amber accent — classic, high-contrast pairing with teal-green */
-  --accent: #E0A03A;
-  --accent-dark: #C5872A;
-  --accent-soft: #FBEBCF;
+  /* Safety orange — the single accent */
+  --accent: #F97316;
+  --accent-dark: #EA6A0C;
+  --accent-soft: #FEE8D5;
 
   /* Neutrals */
-  --ink: #1E2A2A;
-  --ink-soft: #5E6E6C;
+  --ink: #1E293B;
+  --ink-soft: #64748B;
   --surface: #FFFFFF;
-  --surface-soft: #EEF3F1;
-  --surface-tint: #F7F9F8;
-  --line: #D8E2DF;
+  --surface-soft: #F1F5F9;
+  --surface-tint: #F8FAFC;
+  --line: #E2E8F0;
 
   /* State colours */
-  --ok: #2E7D43;
-  --ok-soft: #E4F2E6;
-  --warn: #9A6400;
-  --warn-soft: #FBEACF;
-  --bad: #B5302A;
-  --bad-soft: #F8E2E0;
+  --ok: #15803D;
+  --ok-soft: #DCFCE7;
+  --warn: #B45309;
+  --warn-soft: #FEF0D9;
+  --bad: #B91C1C;
+  --bad-soft: #FCE4E4;
 
   --display: "Bebas Neue", "Arial Narrow", Impact, sans-serif;
   --sans: "Source Sans 3", "Segoe UI", Arial, sans-serif;
 
-  --radius: 14px;
-  --radius-sm: 9px;
-  --shadow-sm: 0 6px 18px -10px rgba(15, 35, 36, 0.45);
-  --shadow: 0 18px 40px -18px rgba(15, 35, 36, 0.40);
-  --shadow-lg: 0 30px 60px -22px rgba(15, 35, 36, 0.45);
+  --radius: 4px;
+  --radius-sm: 3px;
+  --shadow-sm: 0 6px 18px -12px rgba(15, 23, 42, 0.42);
+  --shadow: 0 20px 44px -22px rgba(15, 23, 42, 0.40);
+  --shadow-lg: 0 34px 66px -26px rgba(15, 23, 42, 0.46);
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --maxw: 1200px;
+  --maxw: 1240px;
 }
 
 * {
@@ -170,7 +171,7 @@ select:focus-visible,
   border-radius: 999px;
   cursor: pointer;
   overflow: hidden;
-  box-shadow: 0 10px 22px -12px rgba(197, 135, 42, 0.9);
+  box-shadow: 0 10px 22px -12px rgba(234, 106, 12, 0.9);
   transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease),
     background 0.25s var(--ease);
 }
@@ -193,7 +194,7 @@ select:focus-visible,
   background: var(--accent-dark);
   color: var(--brand-deep);
   transform: translateY(-3px);
-  box-shadow: 0 18px 30px -14px rgba(197, 135, 42, 0.95);
+  box-shadow: 0 18px 30px -14px rgba(234, 106, 12, 0.95);
 }
 
 .btn:hover::after {
@@ -285,7 +286,7 @@ select:focus-visible,
 }
 
 .site-header.scrolled {
-  box-shadow: 0 12px 30px -18px rgba(15, 35, 36, 0.5);
+  box-shadow: 0 12px 30px -18px rgba(15, 23, 42, 0.5);
   background: rgba(255, 255, 255, 0.97);
 }
 
@@ -476,9 +477,9 @@ select:focus-visible,
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(20, 39, 41, 0.15) 0%,
-    rgba(20, 39, 41, 0.35) 55%,
-    rgba(20, 39, 41, 0.8) 100%
+    rgba(15, 23, 42, 0.15) 0%,
+    rgba(15, 23, 42, 0.35) 55%,
+    rgba(15, 23, 42, 0.8) 100%
   );
   pointer-events: none;
 }
@@ -486,8 +487,8 @@ select:focus-visible,
 .hero.interior::after {
   background: linear-gradient(
     180deg,
-    rgba(20, 39, 41, 0.55) 0%,
-    rgba(20, 39, 41, 0.7) 100%
+    rgba(15, 23, 42, 0.55) 0%,
+    rgba(15, 23, 42, 0.7) 100%
   );
 }
 

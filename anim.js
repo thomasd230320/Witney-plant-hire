@@ -38,21 +38,21 @@
       '<div class="ground"></div>' +
       '<svg class="digger" viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg">' +
         '<g class="dig-boom">' +
-          '<path d="M88 74 L150 40" fill="none" stroke="#E0A03A" stroke-width="13" stroke-linecap="round"/>' +
-          '<path d="M150 40 L176 90" fill="none" stroke="#C5872A" stroke-width="11" stroke-linecap="round"/>' +
-          '<path d="M168 84 q-5 18 13 20 q11 1 13 -9 l-7 -2 q-2 7 -9 5 q-7 -2 -4 -12 z" fill="#142729"/>' +
+          '<path d="M88 74 L150 40" fill="none" stroke="#F97316" stroke-width="13" stroke-linecap="round"/>' +
+          '<path d="M150 40 L176 90" fill="none" stroke="#EA6A0C" stroke-width="11" stroke-linecap="round"/>' +
+          '<path d="M168 84 q-5 18 13 20 q11 1 13 -9 l-7 -2 q-2 7 -9 5 q-7 -2 -4 -12 z" fill="#0F172A"/>' +
         "</g>" +
-        '<ellipse class="dust" cx="168" cy="104" rx="15" ry="7" fill="#9aa8a5"/>' +
-        '<rect x="14" y="100" width="156" height="22" rx="11" fill="#142729"/>' +
-        '<circle cx="34" cy="111" r="7" fill="#356065"/>' +
-        '<circle cx="66" cy="111" r="7" fill="#356065"/>' +
-        '<circle cx="98" cy="111" r="7" fill="#356065"/>' +
-        '<circle cx="130" cy="111" r="7" fill="#356065"/>' +
-        '<circle cx="156" cy="111" r="7" fill="#356065"/>' +
-        '<rect x="30" y="72" width="18" height="30" rx="5" fill="#142729"/>' +
-        '<rect x="40" y="66" width="96" height="38" rx="7" fill="#1F3A3D"/>' +
-        '<rect x="48" y="42" width="48" height="28" rx="6" fill="#356065"/>' +
-        '<rect x="53" y="48" width="22" height="15" rx="2" fill="#cfe0dc"/>' +
+        '<ellipse class="dust" cx="168" cy="104" rx="15" ry="7" fill="#94A3B8"/>' +
+        '<rect x="14" y="100" width="156" height="22" rx="11" fill="#0F172A"/>' +
+        '<circle cx="34" cy="111" r="7" fill="#64748B"/>' +
+        '<circle cx="66" cy="111" r="7" fill="#64748B"/>' +
+        '<circle cx="98" cy="111" r="7" fill="#64748B"/>' +
+        '<circle cx="130" cy="111" r="7" fill="#64748B"/>' +
+        '<circle cx="156" cy="111" r="7" fill="#64748B"/>' +
+        '<rect x="30" y="72" width="18" height="30" rx="5" fill="#0F172A"/>' +
+        '<rect x="40" y="66" width="96" height="38" rx="7" fill="#1E293B"/>' +
+        '<rect x="48" y="42" width="48" height="28" rx="6" fill="#64748B"/>' +
+        '<rect x="53" y="48" width="22" height="15" rx="2" fill="#E2E8F0"/>' +
       "</svg>";
     footer.parentNode.insertBefore(band, footer);
     digger = band.querySelector(".digger");
