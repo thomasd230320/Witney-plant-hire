@@ -432,6 +432,67 @@ textarea:focus-visible {
   text-decoration: none;
 }
 
+/* ---- Catalog (subpage content) ---- */
+.catalog {
+  margin-top: 10px;
+}
+
+.catalog-block {
+  background: #fff;
+  border-left: 4px solid var(--orange);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+  border-radius: 2px;
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  scroll-margin-top: 110px;
+}
+
+.catalog-block h2 {
+  color: var(--orange);
+  margin: 0 0 14px;
+  font-size: 24px;
+}
+
+.catalog-block > p {
+  margin-top: 0;
+}
+
+.catalog-block ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  columns: 2;
+  column-gap: 40px;
+}
+
+.catalog-block li {
+  padding: 6px 0 6px 22px;
+  position: relative;
+  break-inside: avoid;
+  font-size: 15px;
+}
+
+.catalog-block li::before {
+  content: "\00BB";
+  color: var(--orange);
+  font-weight: 800;
+  position: absolute;
+  left: 0;
+}
+
+.catalog-note {
+  margin: 14px 0 0;
+  font-size: 14px;
+  font-style: italic;
+  color: #666;
+}
+
+@media (max-width: 700px) {
+  .catalog-block ul {
+    columns: 1;
+  }
+}
+
 /* ---- Contact page ---- */
 .contact-layout {
   display: grid;
