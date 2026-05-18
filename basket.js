@@ -82,10 +82,73 @@
     return { cls: "in", text: "In stock" };
   }
 
-  // ---- Enhance catalogue list items on hire pages ----
+  // ---- Equipment imagery ----
+  // Per-machine photos (keyed by name, slugified at runtime so it always
+  // matches the catalogue text).
+  var ITEM_IMG_BY_NAME = {
+    "1.2 Tonne Kubota U10": "images/plant/IMG_3331-removebg-preview-1.png",
+    "1.8 Tonne Takeuchi TB016": "images/plant/Takeuchi_TB016_1.8T_Excavator.png",
+    "3 Tonne Takeuchi TB228": "images/plant/Takeuchi_TB228_3T_Excavator.png",
+    "3 Tonne Hitachi ZX27R": "images/plant/Hitachi_ZX27R_Mini_Excavator.png",
+    "5.5 Tonne Takeuchi TB250": "images/plant/Takeuchi_TB250_5.5T_Excavator.png",
+    "6 Tonne Doosan DX63R": "images/plant/Doosan_DX63R_6T_Excavator.png",
+    "9 Tonne Doosan DX85R": "images/plant/Doosan_DX85R_9T_Excavator.png",
+    "14 Tonne Doosan DX140LCR": "images/plant/Doosan_DX140LCR_14T_Excavator.png",
+    "22 Tonne Kobelco SK210-10": "images/plant/crawler-excavators-sk-210-lc-11-kobelco(6).jpg",
+    "JCB 524-50 - 5 Metre Compact Telescopic Forklift": "images/plant/JCB_524-50_5M_Compact_Forklift.png",
+    "JCB 531-70 - 7 Metre Telescopic": "images/plant/JCB_531-70_7M_Forklift.png",
+    "JCB 535-95 - 9.5 Metre Telescopic": "images/plant/JCB_535-95_9.5M_Forklift.png",
+    "JCB 533-105 - 10 Metre Telescopic": "images/plant/JCB_Telehandler_Compact.png",
+    "Manitou MT625 - 6 Metre Compact Telescopic": "images/plant/Manitou_Telehandler_Forklift.png",
+    "Manitou MT1335SL - 13 Metre Telescopic": "images/plant/Manitou_Telehandler_Forklift.png",
+    "Merlo P25.6 - 6 Metre Compact Telescopic": "images/plant/Merlo_P25_P34_Telescopic_Forklift.png",
+    "Merlo P34.7 - 7 Metre Telescopic": "images/plant/Merlo_P25_P34_Telescopic_Forklift.png",
+    "Terex PT6000 6 Tonne": "images/plant/Terex_PT6000_Dumper_Truck.png",
+    "Volvo ED750 Skip Loading Machine": "images/plant/Volvo_ED750_Dumper_Truck.png",
+    "Bobcat T770 Tracked Skid Steer Loader 4.5 Ton": "images/plant/Bobcat_T650_Skid_Steer.png",
+    "Case 410 Skid Steer Loader": "images/plant/Case_410_Skid_Steer_Loader.png",
+    "Bomag 100 ADL - Ride-on Roller": "images/plant/Bomag_BW100_Roller.png",
+    "Bomag BMP8500 - Remote Trench Roller": "images/plant/Bomag_BMP8500_Trench_Roller.png",
+    "Bomag BW177D-5 - 7 Ton Self-Propelled Roller (Pad Foot)": "images/plant/Bomag_BW177D-5_Padfoot_Roller.png",
+    "Volvo DD25 - 120 Ride-on Roller": "images/plant/Volvo_DD25_Roller.png",
+    "Nifty 120T Trailer Mount Boom Lift": "images/plant/Nifty_120T_Trailer_Boom_Lift.png"
+  };
+  var itemImg = {};
+  Object.keys(ITEM_IMG_BY_NAME).forEach(function (n) {
+    itemImg[slugify(n)] = ITEM_IMG_BY_NAME[n];
+  });
+
+  // Category fallback photos (used when an item has no dedicated shot).
+  var CAT_IMG = {
+    "Excavators": "images/plant/Doosan_DX85R_9T_Excavator.png",
+    "Forklift Trucks": "images/plant/JCB_531-70_7M_Forklift.png",
+    "Dumper Trucks": "images/plant/Thwaites_Dumper_Truck.png",
+    "Generators": "images/plant/Honda_EC2200_Generator_Petrol.png",
+    "Compressors": "images/plant/Atlas_Copco_XASS_Compressor.png",
+    "Skid Steers": "images/plant/Bobcat_T650_Skid_Steer.png",
+    "Rollers": "images/plant/Bomag_80_Roller.png",
+    "Chippers": "images/plant/GTS_1300_Petrol_Wood_Chipper.png",
+    "Powered Access": "images/plant/Scissor_Lift_Powered_Access.png",
+    "Compaction": "images/plant/Compaction_Vibrating_Plate.png",
+    "Concreting": "images/plant/Concrete_Mixer_Belle_Baromix.png"
+  };
+
+  function itemImage(sku, data) {
+    return (
+      itemImg[sku] ||
+      CAT_IMG[data.cat] ||
+      "https://placehold.co/600x450?text=" + encodeURIComponent(data.name)
+    );
+  }
+
+  // ---- Turn catalogue list items into hire product cards ----
   function enhanceCatalogue() {
-    var lis = document.querySelectorAll(".catalog-block li");
-    lis.forEach(function (li) {
+    // Photos now live inside each card — drop the separate galleries.
+    document.querySelectorAll(".catalog-gallery").forEach(function (g) {
+      g.remove();
+    });
+
+    document.querySelectorAll(".catalog-block li").forEach(function (li) {
       var label = li.textContent.trim();
       var sku = slugify(label);
       var data = inv[sku];
@@ -94,6 +157,17 @@
       li.classList.add("hireable");
       if (li.parentElement) li.parentElement.classList.add("hire-list");
       li.textContent = "";
+
+      var media = document.createElement("div");
+      media.className = "hire-card-media";
+      var img = document.createElement("img");
+      img.loading = "lazy";
+      img.src = itemImage(sku, data);
+      img.alt = data.name;
+      media.appendChild(img);
+
+      var body = document.createElement("div");
+      body.className = "hire-card-body";
 
       var nameEl = document.createElement("span");
       nameEl.className = "item-name";
@@ -107,6 +181,11 @@
       var price = document.createElement("span");
       price.className = "item-price";
       price.innerHTML = money(data.day) + "<small> / day</small>";
+
+      var meta = document.createElement("div");
+      meta.className = "hire-card-meta";
+      meta.appendChild(badge);
+      meta.appendChild(price);
 
       var btn = document.createElement("button");
       btn.type = "button";
@@ -127,10 +206,11 @@
         });
       }
 
-      li.appendChild(nameEl);
-      li.appendChild(badge);
-      li.appendChild(price);
-      li.appendChild(btn);
+      body.appendChild(nameEl);
+      body.appendChild(meta);
+      body.appendChild(btn);
+      li.appendChild(media);
+      li.appendChild(body);
     });
   }
 

@@ -82,7 +82,6 @@
     staggerGroup(".cards-grid", ".card", 100, "reveal-zoom");
     staggerGroup(".subgrid", "a", 55);
     staggerGroup(".catalog", ".catalog-block", 90);
-    staggerGroup(".catalog-gallery", "figure", 45);
     staggerGroup(".intro-inner", ".news-item", 90);
     staggerGroup("#basket-page", ".checkout-step", 100);
     single(".contact-form", "reveal-left");
