@@ -31,8 +31,8 @@
   --bad: #B5302A;
   --bad-soft: #F8E2E0;
 
-  --serif: "PT Serif", "Source Serif Pro", Georgia, serif;
-  --sans: "Montserrat", "Open Sans", "Segoe UI", Arial, sans-serif;
+  --display: "Bebas Neue", "Arial Narrow", Impact, sans-serif;
+  --sans: "Source Sans 3", "Segoe UI", Arial, sans-serif;
 
   --radius: 14px;
   --radius-sm: 9px;
@@ -53,7 +53,7 @@ html {
 
 body {
   margin: 0;
-  font-family: var(--serif);
+  font-family: var(--sans);
   color: var(--ink);
   background: var(--surface);
   line-height: 1.7;
@@ -66,9 +66,16 @@ h1, h2, h3, h4, nav, .btn {
   font-family: var(--sans);
 }
 
-h1, h2, h3 {
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+/* Exaggerated Minimalism — oversized display headings */
+h1, h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.02;
+}
+
+h3, h4 {
+  line-height: 1.25;
 }
 
 a {
@@ -497,13 +504,14 @@ select:focus-visible,
 
 .hero-title h1 {
   color: #fff;
-  font-size: clamp(32px, 5.4vw, 58px);
-  font-weight: 800;
+  font-size: clamp(3.4rem, 9.5vw, 8rem);
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.04em;
+  line-height: 0.96;
   text-align: center;
   margin: 0;
-  text-shadow: 0 10px 36px rgba(0, 0, 0, 0.55);
+  text-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
 }
 
 .hero-title h1::after {
@@ -557,7 +565,7 @@ select:focus-visible,
 
 /* ---- Intro block ---- */
 .intro {
-  padding: 72px 0;
+  padding: 96px 0;
 }
 
 .intro-inner {
@@ -566,9 +574,11 @@ select:focus-visible,
 
 .intro h1 {
   color: var(--brand);
-  font-size: clamp(28px, 4vw, 42px);
-  font-weight: 800;
-  margin: 0 0 10px;
+  font-size: clamp(2.8rem, 6vw, 5.4rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  margin: 0 0 16px;
 }
 
 .intro .subhead {
@@ -598,7 +608,7 @@ select:focus-visible,
   background:
     radial-gradient(900px 380px at 90% -10%, var(--brand-soft), transparent),
     var(--surface-soft);
-  padding: 84px 0;
+  padding: 104px 0;
   position: relative;
 }
 
@@ -648,9 +658,10 @@ select:focus-visible,
 
 .card-body h2 {
   color: var(--brand);
-  font-size: 22px;
-  font-weight: 800;
-  margin: 0 0 4px;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin: 0 0 6px;
 }
 
 .card-subtitle {
@@ -737,9 +748,10 @@ select:focus-visible,
 
 .catalog-block h2 {
   color: var(--brand);
-  font-weight: 800;
+  font-weight: 400;
+  letter-spacing: 0.02em;
   margin: 0 0 18px;
-  font-size: 25px;
+  font-size: 32px;
 }
 
 .catalog-block > p {
@@ -842,7 +854,7 @@ select:focus-visible,
   padding: 13px 14px;
   border: 1.5px solid var(--line);
   border-radius: var(--radius-sm);
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 16px;
   background: var(--surface-tint);
   transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease),
@@ -1289,6 +1301,16 @@ select:focus-visible,
   transform: none;
 }
 
+/* Touch targets — minimum 44px tap area (ui-ux-pro-max guideline) */
+.add-btn,
+.remove-btn,
+.sig-tabs button,
+.basket-table select,
+.basket-table input,
+.nav-toggle {
+  min-height: 44px;
+}
+
 /* ---- Basket / checkout page ---- */
 .checkout-step {
   background: var(--surface);
@@ -1349,7 +1371,7 @@ select:focus-visible,
 
 .basket-table select,
 .basket-table input {
-  font-family: var(--serif);
+  font-family: var(--sans);
   padding: 9px 10px;
   border: 1.5px solid var(--line);
   border-radius: var(--radius-sm);
@@ -1416,7 +1438,7 @@ select:focus-visible,
   padding: 13px 14px;
   border: 1.5px solid var(--line);
   border-radius: var(--radius-sm);
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 16px;
   background: var(--surface-tint);
 }
@@ -1477,7 +1499,7 @@ select:focus-visible,
   padding: 12px 14px;
   border: 1.5px solid var(--line);
   border-radius: var(--radius-sm);
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 16px;
   background: var(--surface-tint);
   margin-bottom: 16px;
