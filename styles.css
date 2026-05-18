@@ -1,45 +1,46 @@
 /* ===================================================================
    Witney Plant Hire Ltd — site styles
-   Overhaul per ui-ux-pro-max: Exaggerated Minimalism
-   Palette: industrial slate + safety orange · single accent
+   Warm dark luxury theme — amber gold / copper / brown / near-black
    =================================================================== */
 
 :root {
-  /* Industrial slate — near-black canvas, dark UI, headings */
-  --brand: #1E293B;
-  --brand-deep: #0F172A;
-  --brand-mid: #64748B;
-  --brand-soft: #E2E8F0;
+  color-scheme: dark;
 
-  /* Safety orange — the single accent */
-  --accent: #F97316;
-  --accent-dark: #EA6A0C;
-  --accent-soft: #FEE8D5;
+  /* Warm white — headings, labels, primary text */
+  --brand: #F4F1EA;
+  --brand-deep: #140F0A;
+  --brand-mid: #A89274;
+  --brand-soft: #2C2014;
 
-  /* Neutrals */
-  --ink: #1E293B;
-  --ink-soft: #475569;
-  --surface: #FFFFFF;
-  --surface-soft: #F1F5F9;
-  --surface-tint: #F8FAFC;
-  --line: #E2E8F0;
+  /* Amber gold accent + copper (reference palette) */
+  --accent: #E3A63C;
+  --accent-dark: #C17C3C;
+  --accent-soft: rgba(227, 166, 60, 0.25);
+
+  /* Neutrals — warm dark */
+  --ink: #EDE7DC;
+  --ink-soft: #B3A48C;
+  --surface: #211A11;
+  --surface-soft: #181109;
+  --surface-tint: #2C2316;
+  --line: #382C1D;
 
   /* State colours */
-  --ok: #15803D;
-  --ok-soft: #DCFCE7;
-  --warn: #B45309;
-  --warn-soft: #FEF0D9;
-  --bad: #B91C1C;
-  --bad-soft: #FCE4E4;
+  --ok: #5BD68A;
+  --ok-soft: #16271B;
+  --warn: #F0B85A;
+  --warn-soft: #2E2410;
+  --bad: #F4756B;
+  --bad-soft: #2E1714;
 
   --display: "Bebas Neue", "Arial Narrow", Impact, sans-serif;
   --sans: "Source Sans 3", "Segoe UI", Arial, sans-serif;
 
   --radius: 4px;
   --radius-sm: 3px;
-  --shadow-sm: 0 6px 18px -12px rgba(15, 23, 42, 0.42);
-  --shadow: 0 20px 44px -22px rgba(15, 23, 42, 0.40);
-  --shadow-lg: 0 34px 66px -26px rgba(15, 23, 42, 0.46);
+  --shadow-sm: 0 6px 18px -12px rgba(0, 0, 0, 0.7);
+  --shadow: 0 20px 44px -22px rgba(0, 0, 0, 0.72);
+  --shadow-lg: 0 34px 66px -26px rgba(0, 0, 0, 0.78);
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --maxw: 1240px;
 }
@@ -56,7 +57,7 @@ body {
   margin: 0;
   font-family: var(--sans);
   color: var(--ink);
-  background: var(--surface);
+  background: var(--surface-soft);
   line-height: 1.7;
   font-size: 17.5px;
   -webkit-font-smoothing: antialiased;
@@ -80,7 +81,7 @@ h3, h4 {
 }
 
 a {
-  color: #C2410C;
+  color: var(--accent);
   text-decoration: none;
   transition: color 0.2s var(--ease);
 }
@@ -275,7 +276,7 @@ select:focus-visible,
 
 /* ---- Main header ---- */
 .site-header {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(28, 22, 14, 0.9);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   position: sticky;
@@ -287,7 +288,7 @@ select:focus-visible,
 
 .site-header.scrolled {
   box-shadow: 0 12px 30px -18px rgba(15, 23, 42, 0.5);
-  background: rgba(255, 255, 255, 0.97);
+  background: rgba(24, 18, 11, 0.97);
 }
 
 .site-header .container {
@@ -398,7 +399,7 @@ select:focus-visible,
 .nav-toggle {
   display: none;
   position: relative;
-  background: var(--brand);
+  background: var(--accent);
   border: none;
   border-radius: var(--radius-sm);
   width: 50px;
@@ -409,14 +410,14 @@ select:focus-visible,
 }
 
 .nav-toggle:hover {
-  background: var(--brand-mid);
+  background: var(--accent-dark);
 }
 
 .nav-toggle span,
 .nav-toggle span::before,
 .nav-toggle span::after {
   display: block;
-  background: #fff;
+  background: var(--brand-deep);
   height: 2.5px;
   width: 24px;
   margin: 0 auto;
@@ -552,7 +553,7 @@ select:focus-visible,
 
 /* ---- Trust bar ---- */
 .trust-bar {
-  background: var(--brand);
+  background: var(--brand-deep);
   color: #fff;
 }
 
@@ -784,9 +785,9 @@ select:focus-visible,
 }
 
 .subgrid a:hover {
-  background: var(--brand);
-  color: #fff;
-  border-color: var(--brand);
+  background: var(--accent);
+  color: var(--brand-deep);
+  border-color: var(--accent);
   transform: translateY(-4px);
 }
 
@@ -929,7 +930,7 @@ select:focus-visible,
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-  background: #fff;
+  background: var(--surface-tint);
   border-color: var(--accent);
   box-shadow: 0 0 0 4px var(--accent-soft);
   outline: none;
@@ -945,7 +946,7 @@ select:focus-visible,
 }
 
 .address-box {
-  background: var(--brand);
+  background: var(--surface);
   color: #d6e2df;
   padding: 30px;
   border-radius: var(--radius);
@@ -1109,8 +1110,8 @@ select:focus-visible,
   height: 52px;
   border: none;
   border-radius: 50%;
-  background: var(--brand);
-  color: #fff;
+  background: var(--accent);
+  color: var(--brand-deep);
   font-size: 22px;
   cursor: pointer;
   display: flex;
@@ -1141,7 +1142,7 @@ select:focus-visible,
 .digger-band {
   position: relative;
   height: 168px;
-  background: linear-gradient(180deg, var(--surface-soft) 0%, #dbe7e3 100%);
+  background: linear-gradient(180deg, var(--surface-soft) 0%, #241B12 100%);
   overflow: hidden;
 }
 
@@ -1165,7 +1166,7 @@ select:focus-visible,
   right: 0;
   bottom: 0;
   height: 46px;
-  background: var(--brand);
+  background: var(--brand-deep);
 }
 
 .digger-band .ground::before {
@@ -1222,8 +1223,8 @@ select:focus-visible,
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--brand);
-  color: #fff;
+  background: var(--accent);
+  color: var(--brand-deep);
   padding: 10px 16px;
   border-radius: 999px;
   letter-spacing: 1.2px;
@@ -1255,8 +1256,8 @@ select:focus-visible,
 }
 
 .basket-count.has-items {
-  background: #fff;
-  color: var(--brand);
+  background: var(--brand);
+  color: var(--brand-deep);
 }
 
 .main-nav a.nav-basket:hover .basket-count {
@@ -1400,12 +1401,12 @@ select:focus-visible,
 
 .add-btn.added {
   background: var(--ok);
-  color: #fff;
+  color: var(--brand-deep);
 }
 
 .add-btn:disabled {
-  background: #c4d0cd;
-  color: #6d7c79;
+  background: var(--surface-tint);
+  color: var(--ink-soft);
   cursor: not-allowed;
   transform: none;
 }
@@ -1445,8 +1446,8 @@ select:focus-visible,
   justify-content: center;
   width: 36px;
   height: 36px;
-  background: var(--brand);
-  color: #fff;
+  background: var(--accent);
+  color: var(--brand-deep);
   border-radius: 50%;
   font-size: 16px;
   font-weight: 800;
@@ -1553,7 +1554,7 @@ select:focus-visible,
 }
 
 .signin-form input:focus {
-  background: #fff;
+  background: var(--surface-tint);
   border-color: var(--accent);
   box-shadow: 0 0 0 4px var(--accent-soft);
   outline: none;
@@ -1576,7 +1577,7 @@ select:focus-visible,
   gap: 16px;
   flex-wrap: wrap;
   background: var(--ok-soft);
-  border: 1px solid #bcdfc0;
+  border: 1px solid var(--ok);
   border-radius: var(--radius-sm);
   padding: 16px 18px;
   font-family: var(--sans);
@@ -1649,9 +1650,9 @@ select:focus-visible,
 }
 
 .sig-tabs button.active {
-  background: var(--brand);
-  color: #fff;
-  border-color: var(--brand);
+  background: var(--accent);
+  color: var(--brand-deep);
+  border-color: var(--accent);
 }
 
 .sig-pad {
@@ -1749,7 +1750,7 @@ select:focus-visible,
     top: calc(100% + 1px);
     left: 0;
     right: 0;
-    background: #fff;
+    background: var(--surface);
     flex-direction: column;
     align-items: stretch;
     gap: 0;
@@ -2148,7 +2149,7 @@ select:focus-visible,
 }
 
 .hire-detail-field input:focus {
-  background: #fff;
+  background: var(--surface-tint);
   border-color: var(--accent);
   box-shadow: 0 0 0 4px var(--accent-soft);
   outline: none;
