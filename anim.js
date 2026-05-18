@@ -3,6 +3,8 @@
 (function () {
   "use strict";
 
+  document.documentElement.classList.add("js");
+
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---- Scroll progress bar ---- */
@@ -77,7 +79,6 @@
       });
     };
 
-    single(".hero-title", "reveal-zoom");
     staggerGroup(".trust-bar .container", ".trust-item", 80);
     staggerGroup(".steps-grid", ".step-card", 100, "reveal-zoom");
     staggerGroup(".reviews-grid", ".review-card", 100);
@@ -94,8 +95,19 @@
       function (entries) {
         entries.forEach(function (e) {
           if (e.isIntersecting) {
-            e.target.classList.add("is-visible");
-            io.unobserve(e.target);
+            var t = e.target;
+            t.classList.add("is-visible");
+            io.unobserve(t);
+            // drop the transient reveal classes once the entrance has played
+            setTimeout(function () {
+              t.classList.remove(
+                "reveal",
+                "reveal-zoom",
+                "reveal-left",
+                "reveal-right",
+                "is-visible"
+              );
+            }, 1600);
           }
         });
       },
@@ -146,4 +158,60 @@
   );
   window.addEventListener("resize", onScroll);
   onScroll();
+
+  /* ---- Hero: split-text + staggered entrance ---- */
+  function initHero() {
+    var ht = document.querySelector(".hero-title");
+    if (!ht) return;
+    var h1 = ht.querySelector("h1");
+    if (h1 && !reduced) {
+      var words = h1.textContent.trim().split(/\s+/);
+      h1.textContent = "";
+      words.forEach(function (w, i) {
+        var word = document.createElement("span");
+        word.className = "word";
+        var inner = document.createElement("i");
+        inner.textContent = w;
+        inner.style.transitionDelay = (0.15 + i * 0.085).toFixed(3) + "s";
+        word.appendChild(inner);
+        h1.appendChild(word);
+        if (i < words.length - 1) {
+          h1.appendChild(document.createTextNode(" "));
+        }
+      });
+    }
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        if (h1) h1.classList.add("is-split");
+        ht.classList.add("hero-in");
+      });
+    });
+  }
+
+  /* ---- Fluid CTA: cursor-follow glow + magnetic pull ---- */
+  function fluidButtons() {
+    document.querySelectorAll(".btn").forEach(function (btn) {
+      btn.addEventListener("pointermove", function (e) {
+        var r = btn.getBoundingClientRect();
+        btn.style.setProperty("--mx", ((e.clientX - r.left) / r.width) * 100 + "%");
+        btn.style.setProperty("--my", ((e.clientY - r.top) / r.height) * 100 + "%");
+      });
+    });
+    if (reduced) return;
+    document.querySelectorAll(".hero-actions .btn").forEach(function (btn) {
+      btn.addEventListener("pointermove", function (e) {
+        var r = btn.getBoundingClientRect();
+        var dx = e.clientX - (r.left + r.width / 2);
+        var dy = e.clientY - (r.top + r.height / 2);
+        btn.style.transform =
+          "translate(" + dx * 0.24 + "px, " + dy * 0.3 + "px)";
+      });
+      btn.addEventListener("pointerleave", function () {
+        btn.style.transform = "";
+      });
+    });
+  }
+
+  initHero();
+  fluidButtons();
 })();
