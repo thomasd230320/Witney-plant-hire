@@ -78,7 +78,8 @@
     };
 
     single(".hero-title", "reveal-zoom");
-    staggerGroup(".intro-inner", ":scope > h1, :scope > .subhead, :scope > p", 70);
+    staggerGroup(".trust-bar .container", ".trust-item", 80);
+    staggerGroup(".intro-inner", ":scope > h1, :scope > h2, :scope > .subhead, :scope > p", 70);
     staggerGroup(".cards-grid", ".card", 100, "reveal-zoom");
     staggerGroup(".subgrid", "a", 55);
     staggerGroup(".catalog", ".catalog-block", 90);
