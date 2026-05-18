@@ -79,6 +79,8 @@
 
     single(".hero-title", "reveal-zoom");
     staggerGroup(".trust-bar .container", ".trust-item", 80);
+    staggerGroup(".steps-grid", ".step-card", 100, "reveal-zoom");
+    staggerGroup(".reviews-grid", ".review-card", 100);
     staggerGroup(".intro-inner", ":scope > h1, :scope > h2, :scope > .subhead, :scope > p", 70);
     staggerGroup(".cards-grid", ".card", 100, "reveal-zoom");
     staggerGroup(".subgrid", "a", 55);

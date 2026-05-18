@@ -155,11 +155,19 @@
       if (!data) return;
 
       li.classList.add("hireable");
+      li.dataset.name = data.name.toLowerCase();
+      li.dataset.cat = data.cat || "";
+      li.dataset.stock = data.available > 0 ? "in" : "out";
       if (li.parentElement) li.parentElement.classList.add("hire-list");
       li.textContent = "";
 
-      var media = document.createElement("div");
+      var media = document.createElement("button");
+      media.type = "button";
       media.className = "hire-card-media";
+      media.setAttribute("aria-label", "Quick view: " + data.name);
+      media.addEventListener("click", function () {
+        openQuickView(sku);
+      });
       var img = document.createElement("img");
       img.loading = "lazy";
       img.src = itemImage(sku, data);
@@ -214,6 +222,162 @@
     });
   }
 
+  // ---- Catalogue search & filter ----
+  function initCatalogFilter() {
+    var catalog = document.querySelector(".catalog");
+    if (!catalog || !catalog.querySelector(".hireable")) return;
+
+    var cards = Array.prototype.slice.call(catalog.querySelectorAll(".hireable"));
+    var blocks = Array.prototype.slice
+      .call(catalog.querySelectorAll(".catalog-block"))
+      .filter(function (b) {
+        return b.querySelector(".hireable");
+      });
+
+    var cats = [];
+    cards.forEach(function (c) {
+      if (c.dataset.cat && cats.indexOf(c.dataset.cat) === -1) cats.push(c.dataset.cat);
+    });
+    cats.sort();
+
+    var bar = document.createElement("div");
+    bar.className = "catalog-filter";
+    bar.innerHTML =
+      '<input type="search" class="filter-search" placeholder="Search equipment…" aria-label="Search equipment" />' +
+      '<select class="filter-cat" aria-label="Filter by category"><option value="">All categories</option>' +
+      cats
+        .map(function (c) {
+          return '<option value="' + c + '">' + c + "</option>";
+        })
+        .join("") +
+      "</select>" +
+      '<label class="filter-check"><input type="checkbox" class="filter-stock" /> In stock only</label>' +
+      '<span class="filter-count" aria-live="polite"></span>';
+    catalog.insertBefore(bar, catalog.firstChild);
+
+    var empty = document.createElement("p");
+    empty.className = "catalog-empty";
+    empty.hidden = true;
+    empty.textContent = "No equipment matches your search — try different keywords.";
+    catalog.appendChild(empty);
+
+    var searchEl = bar.querySelector(".filter-search");
+    var catEl = bar.querySelector(".filter-cat");
+    var stockEl = bar.querySelector(".filter-stock");
+    var countEl = bar.querySelector(".filter-count");
+
+    function apply() {
+      var q = searchEl.value.trim().toLowerCase();
+      var cat = catEl.value;
+      var inStock = stockEl.checked;
+      var shown = 0;
+
+      cards.forEach(function (c) {
+        var ok =
+          (!q || c.dataset.name.indexOf(q) !== -1) &&
+          (!cat || c.dataset.cat === cat) &&
+          (!inStock || c.dataset.stock === "in");
+        c.classList.toggle("filtered-out", !ok);
+        if (ok) shown++;
+      });
+
+      blocks.forEach(function (b) {
+        b.classList.toggle(
+          "filtered-out",
+          !b.querySelector(".hireable:not(.filtered-out)")
+        );
+      });
+
+      countEl.textContent = shown + (shown === 1 ? " item" : " items");
+      empty.hidden = shown > 0;
+    }
+
+    searchEl.addEventListener("input", apply);
+    catEl.addEventListener("change", apply);
+    stockEl.addEventListener("change", apply);
+    apply();
+  }
+
+  // ---- Quick-view modal ----
+  var qvOverlay = null;
+  var qvSku = null;
+
+  function buildQuickView() {
+    if (!document.querySelector(".catalog .hireable")) return;
+    qvOverlay = document.createElement("div");
+    qvOverlay.className = "qv-overlay";
+    qvOverlay.hidden = true;
+    qvOverlay.innerHTML =
+      '<div class="qv-modal" role="dialog" aria-modal="true" aria-labelledby="qv-name">' +
+        '<button type="button" class="qv-close" aria-label="Close quick view">×</button>' +
+        '<div class="qv-media"><img id="qv-img" alt="" /></div>' +
+        '<div class="qv-body">' +
+          '<p class="qv-cat" id="qv-cat"></p>' +
+          '<h2 id="qv-name"></h2>' +
+          '<span class="stock-badge" id="qv-badge"></span>' +
+          '<ul class="qv-specs" id="qv-specs"></ul>' +
+          '<button type="button" class="add-btn" id="qv-add">Add to basket</button>' +
+        "</div>" +
+      "</div>";
+    document.body.appendChild(qvOverlay);
+
+    function close() {
+      qvOverlay.hidden = true;
+      document.body.style.overflow = "";
+    }
+    qvOverlay.addEventListener("click", function (e) {
+      if (e.target === qvOverlay) close();
+    });
+    qvOverlay.querySelector(".qv-close").addEventListener("click", close);
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !qvOverlay.hidden) close();
+    });
+    qvOverlay.querySelector("#qv-add").addEventListener("click", function () {
+      var btn = this;
+      if (!qvSku) return;
+      addToBasket(qvSku);
+      btn.classList.add("added");
+      btn.textContent = "Added ✓";
+      setTimeout(function () {
+        btn.classList.remove("added");
+        var d = inv[qvSku];
+        btn.textContent = d && d.available <= 0 ? "Currently unavailable" : "Add to basket";
+      }, 1400);
+    });
+  }
+
+  function openQuickView(sku) {
+    if (!qvOverlay) return;
+    var data = inv[sku];
+    if (!data) return;
+    qvSku = sku;
+    var img = qvOverlay.querySelector("#qv-img");
+    img.src = itemImage(sku, data);
+    img.alt = data.name;
+    qvOverlay.querySelector("#qv-cat").textContent = data.cat || "Hire Equipment";
+    qvOverlay.querySelector("#qv-name").textContent = data.name;
+    var st = stockState(data.available);
+    var badge = qvOverlay.querySelector("#qv-badge");
+    badge.className = "stock-badge stock-" + st.cls;
+    badge.textContent = st.text;
+    qvOverlay.querySelector("#qv-specs").innerHTML =
+      "<li><span>Category</span><span>" + (data.cat || "—") + "</span></li>" +
+      "<li><span>Day rate</span><span>" + money(data.day) + "</span></li>" +
+      "<li><span>Week rate</span><span>" + money(data.week) + "</span></li>" +
+      "<li><span>Availability</span><span>" +
+      (data.available > 0 ? data.available + " in fleet" : "Out on hire") +
+      "</span></li>" +
+      "<li><span>Hire basis</span><span>Self-drive &middot; CPA terms</span></li>";
+    var addBtn = qvOverlay.querySelector("#qv-add");
+    addBtn.disabled = data.available <= 0;
+    addBtn.textContent =
+      data.available <= 0 ? "Currently unavailable" : "Add to basket";
+    addBtn.classList.remove("added");
+    qvOverlay.hidden = false;
+    document.body.style.overflow = "hidden";
+    qvOverlay.querySelector(".qv-close").focus();
+  }
+
   // ================= Basket page controller =================
   function initBasketPage() {
     var page = document.getElementById("basket-page");
@@ -230,9 +394,36 @@
     var sigName = document.getElementById("sig-name");
     var sigAgree = document.getElementById("sig-agree");
     var canvas = document.getElementById("sig-canvas");
+    var hireStart = document.getElementById("hire-start");
+    var postcodeEl = document.getElementById("delivery-postcode");
+    var postcodeBtn = document.getElementById("postcode-check");
+    var postcodeResult = document.getElementById("postcode-result");
 
     var sigMethod = "draw";
     var hasDrawn = false;
+
+    // ---- Hire details: start date + delivery postcode check (demo) ----
+    if (hireStart) {
+      var today = new Date().toISOString().slice(0, 10);
+      hireStart.min = today;
+      hireStart.value = today;
+    }
+    if (postcodeBtn) {
+      postcodeBtn.addEventListener("click", function () {
+        var pc = postcodeEl.value.trim().toUpperCase();
+        var valid = /^[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}$/.test(pc);
+        postcodeResult.hidden = false;
+        if (valid) {
+          postcodeResult.className = "postcode-result ok";
+          postcodeResult.textContent =
+            "✓ We deliver to " + pc + " — our own fleet covers Oxfordshire and the Cotswolds, with national haulage available.";
+        } else {
+          postcodeResult.className = "postcode-result bad";
+          postcodeResult.textContent =
+            "Please enter a valid UK postcode (e.g. OX28 4BP).";
+        }
+      });
+    }
 
     // ---- Render basket ----
     function rate(line) {
@@ -457,6 +648,11 @@
         })
         .join("");
 
+      var startTxt = hireStart && hireStart.value ? hireStart.value : "to be confirmed";
+      var pcTxt = postcodeEl && postcodeEl.value.trim()
+        ? postcodeEl.value.trim().toUpperCase()
+        : "to be confirmed";
+
       confirmation.innerHTML =
         '<h2>Enquiry sent &mdash; ' + ref + "</h2>" +
         "<p>Your hire enquiry has been sent from <strong>" + currentUser() +
@@ -465,6 +661,8 @@
         "<ul class=\"confirm-list\">" + lines + "</ul>" +
         '<p class="confirm-total">Estimated total: ' + money(grand) +
         " (excl. VAT &amp; delivery)</p>" +
+        "<p>Requested start date: <strong>" + startTxt +
+        "</strong> &middot; Delivery postcode: <strong>" + pcTxt + "</strong></p>" +
         "<p>Hire agreement accepted and signed by <strong>" +
         sigName.value.trim() + "</strong> (" + sigMethod + " signature).</p>" +
         '<p class="demo-note">Demo site &mdash; no email is actually sent and no ' +
@@ -488,6 +686,8 @@
   // ---- Boot ----
   document.addEventListener("DOMContentLoaded", function () {
     enhanceCatalogue();
+    initCatalogFilter();
+    buildQuickView();
     updateCount();
     initBasketPage();
   });

@@ -76,6 +76,20 @@
         <div id="basket-page">
           <section class="checkout-step">
             <h2><span class="step-num">1</span> Your Hire Basket</h2>
+            <div class="hire-details">
+              <div class="hire-detail-field">
+                <label for="hire-start">Hire start date</label>
+                <input type="date" id="hire-start" />
+              </div>
+              <div class="hire-detail-field">
+                <label for="delivery-postcode">Delivery postcode</label>
+                <div class="postcode-row">
+                  <input type="text" id="delivery-postcode" autocomplete="postal-code" placeholder="e.g. OX28 4BP" />
+                  <button type="button" class="btn" id="postcode-check">Check</button>
+                </div>
+                <p class="postcode-result" id="postcode-result" hidden></p>
+              </div>
+            </div>
             <div id="basket-contents"></div>
           </section>
 
