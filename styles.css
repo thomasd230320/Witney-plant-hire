@@ -1,46 +1,46 @@
 /* ===================================================================
    Witney Plant Hire Ltd — site styles
-   Warm dark luxury theme — amber gold / copper / brown / near-black
+   Light theme — white / grey / black with an orange accent
    =================================================================== */
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  /* Warm white — headings, labels, primary text */
-  --brand: #F4F1EA;
-  --brand-deep: #140F0A;
-  --brand-mid: #A89274;
-  --brand-soft: #2C2014;
+  /* Black / grey — dark UI, headings, primary text */
+  --brand: #1A1A1A;
+  --brand-deep: #111113;
+  --brand-mid: #6B7077;
+  --brand-soft: #ECEDEF;
 
-  /* Amber gold accent + copper (reference palette) */
-  --accent: #E3A63C;
-  --accent-dark: #C17C3C;
-  --accent-soft: rgba(227, 166, 60, 0.25);
+  /* Orange accent */
+  --accent: #EC6322;
+  --accent-dark: #B0480F;
+  --accent-soft: #FCE5D6;
 
-  /* Neutrals — warm dark */
-  --ink: #EDE7DC;
-  --ink-soft: #B3A48C;
-  --surface: #211A11;
-  --surface-soft: #181109;
-  --surface-tint: #2C2316;
-  --line: #382C1D;
+  /* Neutrals */
+  --ink: #20232A;
+  --ink-soft: #585D66;
+  --surface: #FFFFFF;
+  --surface-soft: #F1F2F4;
+  --surface-tint: #F7F8F9;
+  --line: #E3E4E7;
 
   /* State colours */
-  --ok: #5BD68A;
-  --ok-soft: #16271B;
-  --warn: #F0B85A;
-  --warn-soft: #2E2410;
-  --bad: #F4756B;
-  --bad-soft: #2E1714;
+  --ok: #15803D;
+  --ok-soft: #E3F4E6;
+  --warn: #9A6300;
+  --warn-soft: #FBEFD7;
+  --bad: #B5302A;
+  --bad-soft: #F8E3E1;
 
   --display: "Bebas Neue", "Arial Narrow", Impact, sans-serif;
   --sans: "Source Sans 3", "Segoe UI", Arial, sans-serif;
 
   --radius: 4px;
   --radius-sm: 3px;
-  --shadow-sm: 0 6px 18px -12px rgba(0, 0, 0, 0.7);
-  --shadow: 0 20px 44px -22px rgba(0, 0, 0, 0.72);
-  --shadow-lg: 0 34px 66px -26px rgba(0, 0, 0, 0.78);
+  --shadow-sm: 0 6px 18px -12px rgba(17, 24, 28, 0.34);
+  --shadow: 0 20px 44px -22px rgba(17, 24, 28, 0.30);
+  --shadow-lg: 0 34px 66px -26px rgba(17, 24, 28, 0.34);
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --spring: cubic-bezier(0.34, 1.46, 0.5, 1);
   --spring-soft: cubic-bezier(0.33, 1.12, 0.5, 1);
@@ -83,7 +83,7 @@ h3, h4 {
 }
 
 a {
-  color: var(--accent);
+  color: var(--accent-dark);
   text-decoration: none;
   transition: color 0.2s var(--ease);
 }
@@ -310,7 +310,7 @@ select:focus-visible,
   position: absolute;
   inset: 0 0 auto 0;
   height: 180px;
-  background: linear-gradient(rgba(8, 6, 4, 0.66), transparent);
+  background: linear-gradient(rgba(10, 10, 11, 0.62), transparent);
   transition: opacity 0.45s var(--ease);
   pointer-events: none;
 }
@@ -337,10 +337,10 @@ select:focus-visible,
   min-height: 60px;
   max-width: 1080px;
   padding: 0 22px;
-  background: rgba(20, 16, 11, 0.74);
+  background: rgba(17, 17, 18, 0.82);
   backdrop-filter: blur(18px) saturate(1.5);
   -webkit-backdrop-filter: blur(18px) saturate(1.5);
-  border-color: rgba(244, 241, 234, 0.1);
+  border-color: rgba(255, 255, 255, 0.1);
   box-shadow: 0 16px 44px -16px rgba(0, 0, 0, 0.85),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
@@ -365,10 +365,10 @@ select:focus-visible,
 }
 
 .logo .chevrons span:nth-child(1) {
-  color: var(--brand-mid);
+  color: #C8CACE;
 }
 .logo .chevrons span:nth-child(2) {
-  color: var(--brand);
+  color: #F4F4F4;
 }
 .logo .chevrons span:nth-child(3) {
   color: var(--accent);
@@ -377,7 +377,7 @@ select:focus-visible,
 .logo .wordmark {
   font-weight: 800;
   font-size: 22px;
-  color: var(--brand);
+  color: #F4F4F4;
   text-transform: uppercase;
   letter-spacing: 0.4px;
   transition: font-size 0.3s var(--ease);
@@ -405,7 +405,7 @@ select:focus-visible,
 
 .main-nav a {
   position: relative;
-  color: var(--brand);
+  color: #ECECEC;
   text-transform: uppercase;
   letter-spacing: 1.6px;
   font-size: 13.5px;
@@ -426,7 +426,7 @@ select:focus-visible,
 }
 
 .main-nav a:hover {
-  color: var(--accent-dark);
+  color: var(--accent);
 }
 
 .main-nav a:hover::after,
@@ -546,8 +546,8 @@ select:focus-visible,
   transform: translate(-50%, -50%);
   background: radial-gradient(
     circle,
-    rgba(227, 166, 60, 0.32),
-    rgba(227, 166, 60, 0.08) 42%,
+    rgba(236, 99, 34, 0.3),
+    rgba(236, 99, 34, 0.08) 42%,
     transparent 70%
   );
   filter: blur(46px);
@@ -826,7 +826,7 @@ select:focus-visible,
 .card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
-  border-color: rgba(227, 166, 60, 0.42);
+  border-color: rgba(236, 99, 34, 0.5);
 }
 
 .card img {
@@ -880,7 +880,7 @@ select:focus-visible,
 }
 
 .card-body h2 {
-  color: var(--brand);
+  color: #F6F6F6;
   font-size: 26px;
   font-weight: 400;
   letter-spacing: 0.02em;
@@ -913,7 +913,7 @@ select:focus-visible,
   margin: 12px 0 16px;
   font-size: 14.5px;
   line-height: 1.6;
-  color: var(--ink-soft);
+  color: rgba(255, 255, 255, 0.8);
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.4s var(--ease) 0.06s,
@@ -1150,7 +1150,7 @@ select:focus-visible,
 }
 
 .address-box {
-  background: var(--surface);
+  background: var(--brand-deep);
   color: #d6e2df;
   padding: 30px;
   border-radius: var(--radius);
@@ -1346,7 +1346,7 @@ select:focus-visible,
 .digger-band {
   position: relative;
   height: 168px;
-  background: linear-gradient(180deg, var(--surface-soft) 0%, #241B12 100%);
+  background: linear-gradient(180deg, var(--surface-soft) 0%, #DCDDDF 100%);
   overflow: hidden;
 }
 
@@ -1460,8 +1460,8 @@ select:focus-visible,
 }
 
 .basket-count.has-items {
-  background: var(--brand);
-  color: var(--brand-deep);
+  background: #fff;
+  color: var(--brand);
 }
 
 .main-nav a.nav-basket:hover .basket-count {
@@ -1605,7 +1605,7 @@ select:focus-visible,
 
 .add-btn.added {
   background: var(--ok);
-  color: var(--brand-deep);
+  color: #fff;
 }
 
 .add-btn:disabled {
@@ -1948,7 +1948,7 @@ select:focus-visible,
     top: calc(100% + 1px);
     left: 0;
     right: 0;
-    background: var(--surface);
+    background: var(--brand-deep);
     flex-direction: column;
     align-items: stretch;
     gap: 0;
@@ -1969,7 +1969,7 @@ select:focus-visible,
   }
 
   .main-nav li {
-    border-bottom: 1px solid var(--surface-soft);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .main-nav li:last-child {
