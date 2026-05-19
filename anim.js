@@ -85,6 +85,7 @@
     staggerGroup(".intro-inner", ":scope > h1, :scope > h2, :scope > .subhead, :scope > p", 70);
     staggerGroup(".cards-grid", ".card", 100, "reveal-zoom");
     staggerGroup(".subgrid", "a", 55);
+    staggerGroup(".cat-tiles", "a", 60, "reveal-zoom");
     staggerGroup(".catalog", ".catalog-block", 90);
     staggerGroup(".intro-inner", ".news-item", 90);
     staggerGroup("#basket-page", ".checkout-step", 100);
