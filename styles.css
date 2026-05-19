@@ -656,7 +656,7 @@ select:focus-visible,
   letter-spacing: 3px;
   font-size: 13px;
   font-weight: 700;
-  color: var(--accent);
+  color: #ffffff;
   margin: 0 0 14px;
 }
 
