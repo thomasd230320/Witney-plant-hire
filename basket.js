@@ -130,14 +130,58 @@
     "Chippers": "images/plant/GTS_1300_Petrol_Wood_Chipper.png",
     "Powered Access": "images/plant/Scissor_Lift_Powered_Access.png",
     "Compaction": "images/plant/Compaction_Vibrating_Plate.png",
-    "Concreting": "images/plant/Concrete_Mixer_Belle_Baromix.png"
+    "Concreting": "images/plant/Concrete_Mixer_Belle_Baromix.png",
+    "Crusher Hire": "images/plant/witney-keestrack-jaw-crusher.jpg",
+    "Screener Hire": "images/plant/witney-screener-machine-883plus.jpg",
+    "Site Welfare": "images/plant/witney-site-welfare-containers.jpg",
+    "Heavy Haulage": "images/plant/witney-scania-specialist-haulage-truck.jpg",
+    "Cutting / Fixing": "images/plant/witney-milwaukee-tools-hire.jpg",
+    "Cleaning": "images/plant/witney-milwaukee-tools-hire.jpg",
+    "Lifting": "images/plant/witney-milwaukee-tools-hire.jpg",
+    "Heating / Plumbing": "images/plant/witney-milwaukee-tools-hire.jpg",
+    "Ground Care": "images/plant/witney-milwaukee-tools-hire.jpg",
+    "Laser Levels": "images/plant/witney-milwaukee-tools-hire.jpg",
+    "Ladders": "images/plant/witney-milwaukee-tools-hire.jpg",
+    "Breakers / Drills": "images/plant/witney-milwaukee-tools-hire.jpg",
+    "Water Pumps": "images/plant/witney-milwaukee-tools-hire.jpg",
+    "Decorating": "images/plant/witney-milwaukee-tools-hire.jpg"
+  };
+
+  // Broad-search keywords per category (so "digger" finds excavators etc.)
+  var CAT_KW = {
+    "Excavators": "digger diggers excavator mini digger 360 dig",
+    "Forklift Trucks": "forklift fork lift telehandler telescopic handler loadall",
+    "Dumper Trucks": "dumper dump truck muck",
+    "Generators": "generator genny power",
+    "Compressors": "compressor air",
+    "Skid Steers": "skid steer bobcat loader",
+    "Rollers": "roller compactor tandem ride on",
+    "Bowsers": "bowser fuel water tank diesel",
+    "Chippers": "chipper wood shredder",
+    "Powered Access": "cherry picker boom lift scissor access platform mewp nifty",
+    "Compaction": "wacker plate compactor whacker rammer trench",
+    "Concreting": "cement mixer concrete mixing",
+    "Cutting / Fixing": "nail gun nailer fixing cutting grinding",
+    "Cleaning": "pressure washer jet wash vacuum hoover cleaner",
+    "Lifting": "jack hoist lifting trolley engine",
+    "Heating / Plumbing": "heater heating radiator plumbing dryer",
+    "Ground Care": "garden grounds brush cutter strimmer chainsaw hedge mower lawn turf",
+    "Laser Levels": "laser level surveying cat scanner detector",
+    "Ladders": "ladder ladders steps step access podium",
+    "Breakers / Drills": "breaker breakers drill drills jackhammer kango hammer",
+    "Water Pumps": "water pump pumps submersible puddle trash",
+    "Decorating": "decorating sprayer wallpaper paint painting",
+    "Crusher Hire": "crusher crushing jaw keestrack",
+    "Screener Hire": "screener screening screen terex finlay",
+    "Site Welfare": "welfare toilet cabin office container fencing accommodation",
+    "Heavy Haulage": "haulage lorry transport low loader delivery"
   };
 
   function itemImage(sku, data) {
     return (
       itemImg[sku] ||
       CAT_IMG[data.cat] ||
-      "https://placehold.co/600x450?text=" + encodeURIComponent(data.name)
+      "images/placeholder.svg"
     );
   }
 
@@ -158,6 +202,8 @@
       li.dataset.name = data.name.toLowerCase();
       li.dataset.cat = data.cat || "";
       li.dataset.stock = data.available > 0 ? "in" : "out";
+      li.dataset.search = (data.name + " " + (data.cat || "") + " " +
+        (CAT_KW[data.cat] || "")).toLowerCase();
       if (li.parentElement) li.parentElement.classList.add("hire-list");
       li.textContent = "";
 
@@ -268,13 +314,18 @@
 
     function apply() {
       var q = searchEl.value.trim().toLowerCase();
+      var words = q ? q.split(/\s+/) : [];
       var cat = catEl.value;
       var inStock = stockEl.checked;
       var shown = 0;
 
       cards.forEach(function (c) {
+        var blob = c.dataset.search || c.dataset.name;
+        var textOk = words.every(function (w) {
+          return blob.indexOf(w) !== -1;
+        });
         var ok =
-          (!q || c.dataset.name.indexOf(q) !== -1) &&
+          textOk &&
           (!cat || c.dataset.cat === cat) &&
           (!inStock || c.dataset.stock === "in");
         c.classList.toggle("filtered-out", !ok);
