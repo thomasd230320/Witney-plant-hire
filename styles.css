@@ -975,7 +975,7 @@ select:focus-visible,
   opacity: 1;
 }
 
-.card-body h2 {
+.card-body h3 {
   color: #F6F6F6;
   font-size: 26px;
   font-weight: 400;
@@ -984,7 +984,7 @@ select:focus-visible,
   margin: 2px 0 0;
 }
 
-.card--feature .card-body h2 {
+.card--feature .card-body h3 {
   font-size: clamp(30px, 3vw, 44px);
 }
 
