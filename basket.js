@@ -738,11 +738,35 @@
     renderUser();
   }
 
+  // ---- Category overview tiles: show cheapest day rate per category ----
+  function priceCategoryTiles() {
+    var tiles = document.querySelectorAll(".cat-tile[data-cat]");
+    if (!tiles.length) return;
+
+    var minByCat = {};
+    (window.WPH_INVENTORY || []).forEach(function (it) {
+      if (typeof it.day !== "number") return;
+      if (minByCat[it.cat] === undefined || it.day < minByCat[it.cat]) {
+        minByCat[it.cat] = it.day;
+      }
+    });
+
+    tiles.forEach(function (tile) {
+      var min = minByCat[tile.getAttribute("data-cat")];
+      if (min === undefined || tile.querySelector(".cat-tile-price")) return;
+      var p = document.createElement("span");
+      p.className = "cat-tile-price";
+      p.textContent = "from " + money(min) + "/day";
+      tile.appendChild(p);
+    });
+  }
+
   // ---- Boot ----
   document.addEventListener("DOMContentLoaded", function () {
     enhanceCatalogue();
     initCatalogFilter();
     buildQuickView();
+    priceCategoryTiles();
     updateCount();
     initBasketPage();
   });

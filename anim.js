@@ -213,6 +213,49 @@
     });
   }
 
+  /* ---- Stat band: count-up on scroll ---- */
+  function initCounters() {
+    var nums = document.querySelectorAll(".trust-item strong[data-count]");
+    if (!nums.length) return;
+
+    function paint(el, val) {
+      el.textContent = val + (el.getAttribute("data-suffix") || "");
+    }
+
+    if (reduced) {
+      nums.forEach(function (el) {
+        paint(el, parseInt(el.getAttribute("data-count"), 10) || 0);
+      });
+      return;
+    }
+
+    var cio = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          var el = e.target;
+          cio.unobserve(el);
+          var target = parseInt(el.getAttribute("data-count"), 10) || 0;
+          var dur = 1400;
+          var t0 = 0;
+          function step(ts) {
+            if (!t0) t0 = ts;
+            var p = Math.min((ts - t0) / dur, 1);
+            var eased = 1 - Math.pow(1 - p, 3);
+            paint(el, Math.round(target * eased));
+            if (p < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        });
+      },
+      { threshold: 0.4 }
+    );
+    nums.forEach(function (el) {
+      cio.observe(el);
+    });
+  }
+
   initHero();
   fluidButtons();
+  initCounters();
 })();
