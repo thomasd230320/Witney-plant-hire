@@ -22,6 +22,24 @@
     });
   }
 
+  // Active nav link should not navigate/reload — it just marks the
+  // current section. The orange underline (.active) stays put.
+  document.querySelectorAll(".main-nav a.active").forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+    });
+  });
+
+  // Collapsible "Info" disclosures
+  document.querySelectorAll(".info-toggle").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var wrap = btn.closest(".info-disclosure");
+      if (!wrap) return;
+      var open = wrap.classList.toggle("is-open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  });
+
   // Basic contact form feedback (no backend)
   var form = document.querySelector(".contact-form");
   if (form) {

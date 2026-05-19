@@ -793,6 +793,94 @@ select:focus-visible,
   font-size: 1.04em;
 }
 
+/* ---- Collapsible "Info" disclosure ---- */
+.info-disclosure {
+  margin-top: 4px;
+}
+
+.info-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 22px;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--accent-dark);
+  background: transparent;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.info-toggle:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.info-caret {
+  display: inline-block;
+  font-size: 12px;
+  line-height: 1;
+  transition: transform 0.32s var(--spring);
+}
+
+.info-disclosure.is-open .info-caret {
+  transform: rotate(180deg);
+}
+
+.info-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s var(--ease);
+}
+
+.info-disclosure.is-open .info-panel {
+  grid-template-rows: 1fr;
+}
+
+.info-panel-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.info-disclosure.is-open .info-panel-inner {
+  padding-top: 22px;
+}
+
+/* ---- Back-to-overview link (category pages) ---- */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  margin-bottom: 8px;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--accent-dark);
+}
+
+.back-link span {
+  display: inline-block;
+  font-size: 18px;
+  transition: transform 0.26s var(--spring);
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+.back-link:hover span {
+  transform: translateX(-5px);
+}
+
 /* ---- Service bento grid ---- */
 .cards-section {
   background:
@@ -2315,7 +2403,7 @@ select:focus-visible,
 }
 
 .catalog-block.filtered-out,
-.hireable.filtered-out {
+.catalog-block li.hireable.filtered-out {
   display: none;
 }
 
@@ -2598,5 +2686,34 @@ select:focus-visible,
   }
   .hero-search .btn {
     justify-content: center;
+  }
+}
+
+/* ---- Image fit: show cutout PNG product shots in full ---- */
+.hire-card-media img[src$=".png"] {
+  object-fit: contain;
+  padding: 10px;
+}
+
+.qv-media img[src$=".png"] {
+  object-fit: contain;
+  padding: 18px;
+}
+
+/* ---- Mobile polish: filter bar, info button, back link ---- */
+@media (max-width: 640px) {
+  .catalog-filter .filter-search,
+  .catalog-filter .filter-cat {
+    flex: 1 1 100%;
+  }
+  .filter-count {
+    margin-left: 0;
+  }
+  .info-toggle {
+    width: 100%;
+    justify-content: center;
+  }
+  .back-link {
+    font-size: 12px;
   }
 }
