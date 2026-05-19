@@ -295,6 +295,10 @@
     searchEl.addEventListener("input", apply);
     catEl.addEventListener("change", apply);
     stockEl.addEventListener("change", apply);
+
+    // pre-fill from a ?q= search (used by the home-page search bar)
+    var preset = new URLSearchParams(location.search).get("q");
+    if (preset) searchEl.value = preset;
     apply();
   }
 
