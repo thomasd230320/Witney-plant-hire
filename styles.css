@@ -2786,6 +2786,14 @@ select:focus-visible,
   }
 }
 
+/* ---- Mobile home hero: show the (near-square) mobile banner in full ---- */
+@media (max-width: 760px) {
+  .hero:not(.interior) img {
+    object-fit: contain;
+    object-position: center 35%;
+  }
+}
+
 /* ---- Image fit: show cutout PNG product shots in full ---- */
 .hire-card-media img[src$=".png"] {
   object-fit: contain;
