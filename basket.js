@@ -199,10 +199,13 @@
   function itemImage(sku, data) {
     return (
       itemImg[sku] ||
-      CAT_IMG[data.cat] ||
+      (data && CAT_IMG[data.cat]) ||
       "/images/placeholder.svg"
     );
   }
+  // Expose for cross-script use (e.g. picker.js result cards)
+  window.WPH_itemImage = itemImage;
+  window.WPH_inv = inv;
 
   // ---- Turn catalogue list items into hire product cards ----
   function enhanceCatalogue() {
@@ -284,6 +287,9 @@
       body.appendChild(btn);
       li.appendChild(media);
       li.appendChild(body);
+
+      // Compare checkbox — cross-page widget
+      addCompareCheckbox(li, sku);
     });
   }
 
@@ -659,6 +665,183 @@
     renderUser();
   }
 
+  // ===================================================================
+  // Compare Machines — cross-page widget
+  // Lets a customer tick up to 4 hire items across plant/tool subpages,
+  // then opens a side-by-side modal to compare them.
+  // ===================================================================
+  var COMPARE_KEY = "wph_compare";
+  var COMPARE_MAX = 4;
+
+  function getCompare() {
+    try { return JSON.parse(localStorage.getItem(COMPARE_KEY)) || []; }
+    catch (e) { return []; }
+  }
+  function saveCompare(arr) {
+    localStorage.setItem(COMPARE_KEY, JSON.stringify(arr.slice(0, COMPARE_MAX)));
+    refreshCompareUI();
+  }
+  function toggleCompare(sku) {
+    var arr = getCompare();
+    var idx = arr.indexOf(sku);
+    if (idx >= 0) arr.splice(idx, 1);
+    else {
+      if (arr.length >= COMPARE_MAX) return false;
+      arr.push(sku);
+    }
+    saveCompare(arr);
+    return true;
+  }
+  function removeFromCompare(sku) {
+    var arr = getCompare().filter(function (s) { return s !== sku; });
+    saveCompare(arr);
+  }
+  function clearCompare() {
+    saveCompare([]);
+  }
+
+  function refreshCompareUI() {
+    var arr = getCompare();
+    document.querySelectorAll(".compare-check input").forEach(function (cb) {
+      cb.checked = arr.indexOf(cb.value) >= 0;
+    });
+    var bar = document.getElementById("compare-bar");
+    if (bar) {
+      bar.classList.toggle("show", arr.length > 0);
+      var c = bar.querySelector(".compare-bar-count");
+      if (c) c.textContent = arr.length;
+    }
+    var overlay = document.getElementById("compare-overlay");
+    if (overlay && !overlay.hidden) renderCompareGrid();
+  }
+
+  function addCompareCheckbox(li, sku) {
+    var wrap = document.createElement("label");
+    wrap.className = "compare-check";
+    var cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.value = sku;
+    cb.checked = getCompare().indexOf(sku) >= 0;
+    cb.addEventListener("change", function (e) {
+      var ok = toggleCompare(sku);
+      if (!ok) {
+        e.target.checked = false;
+        alert("Compare up to " + COMPARE_MAX + " machines at a time. Remove one first.");
+      }
+    });
+    var lbl = document.createElement("span");
+    lbl.textContent = "Compare";
+    wrap.appendChild(cb);
+    wrap.appendChild(lbl);
+    li.querySelector(".hire-card-body").appendChild(wrap);
+  }
+
+  function buildCompareBar() {
+    if (document.getElementById("compare-bar")) return;
+    var bar = document.createElement("button");
+    bar.id = "compare-bar";
+    bar.type = "button";
+    bar.className = "compare-bar";
+    bar.setAttribute("aria-label", "Open compare machines");
+    bar.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<rect x="3" y="6" width="7" height="14" rx="1"/><rect x="14" y="3" width="7" height="17" rx="1"/>' +
+      '</svg>' +
+      '<span>Compare</span>' +
+      '<span class="compare-bar-count">0</span>';
+    bar.addEventListener("click", openCompare);
+    document.body.appendChild(bar);
+  }
+
+  function buildCompareModal() {
+    if (document.getElementById("compare-overlay")) return;
+    var overlay = document.createElement("div");
+    overlay.id = "compare-overlay";
+    overlay.className = "qv-overlay compare-overlay";
+    overlay.hidden = true;
+    overlay.innerHTML =
+      '<div class="qv-modal compare-modal" role="dialog" aria-modal="true" aria-labelledby="compare-title">' +
+        '<button type="button" class="qv-close" aria-label="Close compare">×</button>' +
+        '<header class="compare-modal-head">' +
+          '<h2 id="compare-title">Compare machines</h2>' +
+          '<button type="button" class="compare-clear">Clear all</button>' +
+        '</header>' +
+        '<div class="compare-grid" id="compare-grid"></div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+
+    function close() {
+      overlay.hidden = true;
+      document.body.style.overflow = "";
+    }
+    overlay.addEventListener("click", function (e) {
+      if (e.target === overlay) close();
+    });
+    overlay.querySelector(".qv-close").addEventListener("click", close);
+    overlay.querySelector(".compare-clear").addEventListener("click", function () {
+      clearCompare();
+      close();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !overlay.hidden) close();
+    });
+  }
+
+  function hireHrefFor(data) {
+    // Use the existing /search route to land on the right machine — works
+    // regardless of cat-to-URL ambiguity (e.g. tool vs plant generators).
+    return "/search?q=" + encodeURIComponent(data.name);
+  }
+
+  function renderCompareGrid() {
+    var grid = document.getElementById("compare-grid");
+    if (!grid) return;
+    var arr = getCompare();
+    if (!arr.length) {
+      grid.innerHTML = '<p class="compare-empty">No machines selected. Close this dialog and tick the &ldquo;Compare&rdquo; box on any hire card to add it.</p>';
+      return;
+    }
+    grid.innerHTML = "";
+    arr.forEach(function (sku) {
+      var data = inv[sku];
+      if (!data) return;
+      var st = stockState(data.available);
+      var col = document.createElement("article");
+      col.className = "compare-col";
+      col.innerHTML =
+        '<button type="button" class="compare-remove" aria-label="Remove ' + data.name + '">×</button>' +
+        '<div class="compare-col-media"><img loading="lazy" src="' + itemImage(sku, data) + '" alt="' + data.name + '" /></div>' +
+        '<h3>' + data.name + '</h3>' +
+        '<dl class="compare-specs">' +
+          '<dt>Category</dt><dd>' + (data.cat || "—") + '</dd>' +
+          '<dt>Stock</dt><dd><span class="stock-badge stock-' + st.cls + '">' + st.text + '</span></dd>' +
+          '<dt>Day rate</dt><dd><strong>' + money(data.day) + '</strong></dd>' +
+          '<dt>Week rate</dt><dd>' + money(data.week) + '</dd>' +
+        '</dl>' +
+        '<a class="btn" href="' + hireHrefFor(data) + '">Hire this &rarr;</a>';
+      col.querySelector(".compare-remove").addEventListener("click", function () {
+        removeFromCompare(sku);
+      });
+      grid.appendChild(col);
+    });
+  }
+
+  function openCompare() {
+    var overlay = document.getElementById("compare-overlay");
+    if (!overlay) return;
+    renderCompareGrid();
+    overlay.hidden = false;
+    document.body.style.overflow = "hidden";
+    var close = overlay.querySelector(".qv-close");
+    if (close) close.focus();
+  }
+
+  function initCompare() {
+    buildCompareBar();
+    buildCompareModal();
+    refreshCompareUI();
+  }
+
   // ---- Category overview tiles: show cheapest day rate per category ----
   function priceCategoryTiles() {
     var tiles = document.querySelectorAll(".cat-tile[data-cat]");
@@ -689,6 +872,7 @@
     buildQuickView();
     priceCategoryTiles();
     updateCount();
+    initCompare();
     initBasketPage();
   });
 })();

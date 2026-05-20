@@ -60,18 +60,20 @@
     document.body.appendChild(mbar);
   }
 
-  // Basic contact form feedback (no backend)
-  var form = document.querySelector(".contact-form");
-  if (form) {
+  // Basic contact form feedback (no backend). Works for any .contact-form;
+  // each form can supply a custom success message via data-success="...".
+  document.querySelectorAll(".contact-form").forEach(function (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      var note = document.getElementById("form-status");
+      var note = form.querySelector("#form-status") ||
+                 document.getElementById("form-status");
       if (note) {
-        note.textContent =
-          "Thank you — your enquiry has been noted. We will be in touch shortly.";
+        note.innerHTML = form.getAttribute("data-success") ||
+          "Thank you &mdash; your enquiry has been noted. We will be in touch shortly.";
         note.hidden = false;
+        note.scrollIntoView({ behavior: "smooth", block: "center" });
       }
       form.reset();
     });
-  }
+  });
 })();
