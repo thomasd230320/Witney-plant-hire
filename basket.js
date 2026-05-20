@@ -10,8 +10,13 @@
   //   When false, basket.js still loads (so /basket.html works
   //   directly), but all "Add to basket" affordances are hidden
   //   via a `shop-disabled` class on <html>.
+  //
+  //   This is a quote-builder, NOT e-commerce: customers add hire
+  //   items to build an enquiry, sign a CPA agreement (demo: a
+  //   checkbox) and submit. The "submission" is a demo stub — no
+  //   email is actually sent. Real email submission is phase 2.
   // ===========================================================
-  var SHOP_ENABLED = false;
+  var SHOP_ENABLED = true;
   window.WPH_SHOP_ENABLED = SHOP_ENABLED;
   if (!SHOP_ENABLED) {
     document.documentElement.classList.add("shop-disabled");
@@ -460,16 +465,11 @@
     var sendBtn = document.getElementById("send-enquiry");
     var sendHint = document.getElementById("send-hint");
     var confirmation = document.getElementById("confirmation");
-    var sigName = document.getElementById("sig-name");
     var sigAgree = document.getElementById("sig-agree");
-    var canvas = document.getElementById("sig-canvas");
     var hireStart = document.getElementById("hire-start");
     var postcodeEl = document.getElementById("delivery-postcode");
     var postcodeBtn = document.getElementById("postcode-check");
     var postcodeResult = document.getElementById("postcode-result");
-
-    var sigMethod = "draw";
-    var hasDrawn = false;
 
     // ---- Hire details: start date + delivery postcode check (demo) ----
     if (hireStart) {
@@ -612,78 +612,14 @@
       renderUser();
     });
 
-    // ---- Signature ----
-    document.querySelectorAll("[data-sigtab]").forEach(function (tab) {
-      tab.addEventListener("click", function () {
-        sigMethod = tab.getAttribute("data-sigtab");
-        document.querySelectorAll("[data-sigtab]").forEach(function (t) {
-          t.classList.toggle("active", t === tab);
-        });
-        document.getElementById("sig-draw").hidden = sigMethod !== "draw";
-        document.getElementById("sig-type").hidden = sigMethod !== "type";
-        refreshGate();
-      });
-    });
-
-    var ctx = canvas.getContext("2d");
-    function sizeCanvas() {
-      var w = canvas.clientWidth || 400;
-      canvas.width = w;
-      canvas.height = 160;
-      ctx.lineWidth = 2.5;
-      ctx.lineCap = "round";
-      ctx.strokeStyle = "#1A1A1A";
+    // ---- Agreement (demo: single checkbox stands in for the signature) ----
+    if (sigAgree) {
+      sigAgree.addEventListener("change", refreshGate);
     }
-    sizeCanvas();
-    window.addEventListener("resize", sizeCanvas);
-
-    var drawing = false;
-    function pos(e) {
-      var r = canvas.getBoundingClientRect();
-      var p = e.touches ? e.touches[0] : e;
-      return { x: p.clientX - r.left, y: p.clientY - r.top };
-    }
-    function start(e) {
-      drawing = true;
-      var p = pos(e);
-      ctx.beginPath();
-      ctx.moveTo(p.x, p.y);
-      e.preventDefault();
-    }
-    function move(e) {
-      if (!drawing) return;
-      var p = pos(e);
-      ctx.lineTo(p.x, p.y);
-      ctx.stroke();
-      hasDrawn = true;
-      e.preventDefault();
-    }
-    function end() {
-      drawing = false;
-      refreshGate();
-    }
-    canvas.addEventListener("mousedown", start);
-    canvas.addEventListener("mousemove", move);
-    window.addEventListener("mouseup", end);
-    canvas.addEventListener("touchstart", start, { passive: false });
-    canvas.addEventListener("touchmove", move, { passive: false });
-    canvas.addEventListener("touchend", end);
-
-    document.getElementById("sig-clear").addEventListener("click", function () {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      hasDrawn = false;
-      refreshGate();
-    });
-
-    [sigName, sigAgree].forEach(function (el) {
-      el.addEventListener("input", refreshGate);
-      el.addEventListener("change", refreshGate);
-    });
 
     // ---- Gating ----
     function agreementSigned() {
-      if (!sigName.value.trim() || !sigAgree.checked) return false;
-      return sigMethod === "draw" ? hasDrawn : true;
+      return !!(sigAgree && sigAgree.checked);
     }
 
     function refreshGate() {
@@ -695,48 +631,19 @@
       var msg = "Ready to send your hire enquiry.";
       if (!hasItems) msg = "Add equipment to your basket to continue.";
       else if (!signedIn) msg = "Please sign in with your email to continue.";
-      else if (!signed) msg = "Enter your name, sign the agreement and tick the box to continue.";
+      else if (!signed) msg = "Tick the CPA hire-terms checkbox to continue.";
       sendHint.textContent = msg;
     }
 
-    // ---- Send enquiry (demo) ----
+    // ---- Send enquiry (demo stub — real email submission is phase 2) ----
     sendBtn.addEventListener("click", function () {
       var b = getBasket();
       if (!b.length || !currentUser() || !agreementSigned()) return;
 
-      var grand = b.reduce(function (t, l) { return t + lineTotal(l); }, 0);
-      var ref = "WPH-" + Math.floor(10000 + Math.random() * 89999);
-      var lines = b
-        .map(function (l) {
-          return (
-            "<li>" + l.qty + " &times; " + l.name + " &mdash; " +
-            l.units + " " + l.duration + (l.units > 1 ? "s" : "") +
-            " @ " + money(rate(l)) + "/" + l.duration +
-            " = " + money(lineTotal(l)) + "</li>"
-          );
-        })
-        .join("");
-
-      var startTxt = hireStart && hireStart.value ? hireStart.value : "to be confirmed";
-      var pcTxt = postcodeEl && postcodeEl.value.trim()
-        ? postcodeEl.value.trim().toUpperCase()
-        : "to be confirmed";
-
       confirmation.innerHTML =
-        '<h2>Enquiry sent &mdash; ' + ref + "</h2>" +
-        "<p>Your hire enquiry has been sent from <strong>" + currentUser() +
-        "</strong> to <strong>enquiries@witneyplanthire.com</strong>. " +
-        "Our hire desk will confirm availability and pricing shortly.</p>" +
-        "<ul class=\"confirm-list\">" + lines + "</ul>" +
-        '<p class="confirm-total">Estimated total: ' + money(grand) +
-        " (excl. VAT &amp; delivery)</p>" +
-        "<p>Requested start date: <strong>" + startTxt +
-        "</strong> &middot; Delivery postcode: <strong>" + pcTxt + "</strong></p>" +
-        "<p>Hire agreement accepted and signed by <strong>" +
-        sigName.value.trim() + "</strong> (" + sigMethod + " signature).</p>" +
-        '<p class="demo-note">Demo site &mdash; no email is actually sent and no ' +
-        "card is charged. Stock figures are sample data standing in for the " +
-        "inspHire fleet system.</p>";
+        '<h2>Thanks!</h2>' +
+        '<p>Your hire enquiry would now be sent to our hire desk for review.</p>' +
+        '<p class="demo-note"><strong>Demo:</strong> real email submission to be implemented in phase 2 of the build.</p>';
       confirmation.hidden = false;
 
       saveBasket([]);
