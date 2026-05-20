@@ -2786,11 +2786,14 @@ select:focus-visible,
   }
 }
 
-/* ---- Mobile home hero: show the (near-square) mobile banner in full ---- */
+/* ---- Mobile home hero: revert to cover crop and hide overlay text ---- */
 @media (max-width: 760px) {
-  .hero:not(.interior) img {
-    object-fit: contain;
-    object-position: center 35%;
+  /* Hide the headline, eyebrow and tagline that sit over the banner;
+     keep the search bar and CTAs so the hero still works */
+  .hero:not(.interior) .hero-eyebrow,
+  .hero:not(.interior) h1,
+  .hero:not(.interior) .hero-tagline {
+    display: none;
   }
 
   /* Utility bar: drop the (now-duplicated) phone number, right-align the links */
