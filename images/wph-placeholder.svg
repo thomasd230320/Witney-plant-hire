@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Witney Plant Hire">
+  <defs>
+    <radialGradient id="wph-bg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#26262A"/>
+      <stop offset="100%" stop-color="#111113"/>
+    </radialGradient>
+    <linearGradient id="wph-fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(15,23,42,0)"/>
+      <stop offset="100%" stop-color="rgba(15,23,42,0.55)"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#wph-bg)"/>
+  <g fill="none" stroke-width="34" stroke-linecap="round" stroke-linejoin="round" opacity="0.16">
+    <polyline points="-40,170 120,300 -40,430" stroke="#EC6322"/>
+    <polyline points="1480,470 1640,600 1480,730" stroke="#EC6322"/>
+  </g>
+  <g transform="translate(800 420)" text-anchor="middle">
+    <g stroke-width="22" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="-160,-60 -110,0 -160,60" stroke="#C8CACE"/>
+      <polyline points="-90,-60 -40,0 -90,60" stroke="#F4F4F4"/>
+      <polyline points="-20,-60 30,0 -20,60" stroke="#EC6322"/>
+    </g>
+  </g>
+  <g text-anchor="middle" font-family="'Bebas Neue', 'Arial Narrow', Impact, sans-serif">
+    <text x="800" y="600" fill="#F4F4F4" font-size="120" letter-spacing="6" font-weight="400">WITNEY PLANT HIRE</text>
+    <text x="800" y="675" fill="#EC6322" font-size="34" letter-spacing="14" font-weight="700" font-family="'Source Sans 3', Arial, sans-serif">LTD &#8231; OXFORDSHIRE</text>
+  </g>
+  <rect width="1600" height="900" fill="url(#wph-fade)"/>
+</svg>
