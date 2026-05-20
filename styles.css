@@ -178,26 +178,26 @@ select:focus-visible,
   transition: width 0.1s linear;
 }
 
-/* ---- Buttons ---- */
+/* ---- Buttons (editorial, sharper) ---- */
 .btn {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   background: var(--accent);
   color: var(--brand-deep);
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.8px;
   font-size: 13px;
   font-weight: 800;
-  padding: 14px 26px;
+  padding: 16px 28px;
   border: none;
-  border-radius: 999px;
+  border-radius: var(--radius);
   cursor: pointer;
   overflow: hidden;
-  box-shadow: 0 10px 22px -12px rgba(234, 106, 12, 0.9);
-  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease),
-    background 0.25s var(--ease);
+  box-shadow: 0 14px 28px -16px rgba(176, 72, 15, 0.6);
+  transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease),
+    background 0.22s var(--ease), color 0.22s var(--ease);
 }
 
 .btn::before {
@@ -207,7 +207,7 @@ select:focus-visible,
   border-radius: inherit;
   background: radial-gradient(
     160px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(255, 255, 255, 0.45),
+    rgba(255, 255, 255, 0.38),
     transparent 60%
   );
   opacity: 0;
@@ -220,43 +220,59 @@ select:focus-visible,
 }
 
 .btn::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.55) 50%,
-    transparent 70%
-  );
-  transform: translateX(-120%);
-  transition: transform 0.6s var(--ease);
+  content: "\2192";
+  position: relative;
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 700;
+  transition: transform 0.22s var(--ease);
 }
 
 .btn:hover {
   background: var(--accent-dark);
-  color: var(--brand-deep);
-  transform: translateY(-3px);
-  box-shadow: 0 18px 30px -14px rgba(234, 106, 12, 0.95);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px -16px rgba(176, 72, 15, 0.75);
 }
 
 .btn:hover::after {
-  transform: translateX(120%);
+  transform: translateX(4px);
 }
 
 .btn:active {
-  transform: translateY(-1px);
+  transform: translateY(0);
 }
 
+/* Adaptive ghost button: dark accent on light bg, white on dark bg */
 .btn-ghost {
   background: transparent;
-  color: #fff;
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.65);
+  color: var(--accent-dark);
+  box-shadow: inset 0 0 0 2px currentColor;
 }
 
+.btn-ghost::after { color: currentColor; }
+
 .btn-ghost:hover {
+  background: var(--accent-dark);
+  color: #fff;
+  box-shadow: inset 0 0 0 2px var(--accent-dark);
+  transform: translateY(-2px);
+}
+
+/* On dark contexts: ghost stays white outline */
+.hero .btn-ghost,
+.statement .btn-ghost,
+.split-band-dark .btn-ghost {
+  color: #fff;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.7);
+}
+
+.hero .btn-ghost:hover,
+.statement .btn-ghost:hover,
+.split-band-dark .btn-ghost:hover {
   background: rgba(255, 255, 255, 0.12);
   color: #fff;
+  box-shadow: inset 0 0 0 2px #fff;
 }
 
 /* ---- Top utility bar ---- */
@@ -1382,10 +1398,11 @@ select:focus-visible,
 .contact-form label {
   display: block;
   font-family: var(--sans);
-  font-weight: 700;
-  font-size: 13.5px;
-  letter-spacing: 0.3px;
-  margin: 18px 0 6px;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  margin: 22px 0 8px;
   color: var(--brand);
 }
 
@@ -1790,15 +1807,17 @@ select:focus-visible,
 .hire-card-body {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 16px 18px 18px;
+  gap: 14px;
+  padding: 22px 22px 24px;
   flex: 1;
 }
 
 .catalog-block li.hireable .item-name {
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1.3;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 0.98;
+  letter-spacing: 0.005em;
   color: var(--brand);
 }
 
@@ -1816,14 +1835,27 @@ select:focus-visible,
 }
 
 .stock-badge {
+  position: relative;
   font-family: var(--sans);
-  font-size: 10.5px;
+  font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.6px;
-  padding: 5px 11px;
-  border-radius: 999px;
+  letter-spacing: 1px;
+  padding: 5px 10px 5px 18px;
+  border-radius: 3px;
   white-space: nowrap;
+}
+
+.stock-badge::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  transform: translateY(-50%);
 }
 
 .stock-in {
@@ -1856,21 +1888,32 @@ select:focus-visible,
 
 .add-btn {
   font-family: var(--sans);
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.4px;
   color: var(--brand-deep);
   background: var(--accent);
   border: none;
-  border-radius: 999px;
-  padding: 10px 16px;
+  border-radius: var(--radius);
+  padding: 12px 18px;
   cursor: pointer;
-  transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.add-btn::after {
+  content: "+";
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .add-btn:hover {
   background: var(--accent-dark);
+  color: #fff;
   transform: translateY(-2px);
 }
 
@@ -2742,23 +2785,37 @@ select:focus-visible,
 }
 
 .qv-body {
-  padding: 32px 30px;
+  padding: 38px 36px 36px;
 }
 
 .qv-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   font-family: var(--sans);
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 2.4px;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--accent-dark);
-  margin: 0 0 6px;
+  margin: 0 0 12px;
+}
+.qv-cat::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  background: var(--accent);
 }
 
 .qv-body h2 {
   color: var(--brand);
-  font-size: 30px;
-  margin: 0 0 12px;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  line-height: 0.98;
+  letter-spacing: var(--tracking-tight);
+  margin: 0 0 18px;
+  text-wrap: balance;
 }
 
 .qv-specs {
