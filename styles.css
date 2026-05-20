@@ -2792,6 +2792,63 @@ select:focus-visible,
     object-fit: contain;
     object-position: center 35%;
   }
+
+  /* Utility bar: drop the (now-duplicated) phone number, right-align the links */
+  .utility-bar .tel {
+    display: none;
+  }
+  .utility-bar .container {
+    justify-content: flex-end;
+    gap: 4px 14px;
+    font-size: 12px;
+    min-height: 38px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+  .utility-links {
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  /* Back-to-top: lift above the sticky mobile contact bar so it never overlaps */
+  .to-top {
+    right: 14px;
+    bottom: calc(60px + env(safe-area-inset-bottom, 0) + 12px);
+    width: 46px;
+    height: 46px;
+  }
+
+  /* Trust band + section padding tightened for small screens */
+  .trust-item {
+    padding: 18px 12px;
+  }
+  .trust-item strong {
+    font-size: 24px;
+  }
+  .trust-item span {
+    font-size: 11.5px;
+  }
+
+  /* Hero CTAs: stack full-width on very narrow phones */
+  .hero-actions {
+    width: 100%;
+  }
+  .hero-actions .btn {
+    flex: 1 1 140px;
+    justify-content: center;
+  }
+
+  /* Make breadcrumb wrap cleanly */
+  .breadcrumb ol {
+    padding: 10px 0;
+    font-size: 11.5px;
+  }
+
+  /* Section titles scale a touch smaller on tiny screens */
+  .section-title {
+    font-size: clamp(2rem, 7vw, 3rem);
+  }
 }
 
 /* ---- Image fit: show cutout PNG product shots in full ---- */
