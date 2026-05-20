@@ -1285,10 +1285,13 @@ select:focus-visible,
 
 .catalog-block h2 {
   color: var(--brand);
+  font-family: var(--display);
   font-weight: 400;
-  letter-spacing: 0.02em;
-  margin: 0 0 18px;
-  font-size: 32px;
+  letter-spacing: var(--tracking-tight);
+  line-height: 0.98;
+  margin: 0 0 28px;
+  font-size: var(--type-h1);
+  text-wrap: balance;
 }
 
 .catalog-block > p {
@@ -1740,8 +1743,9 @@ select:focus-visible,
   list-style: none;
   columns: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(238px, 1fr));
-  gap: 22px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
+  margin: 8px 0 0;
 }
 
 .catalog-block li.hireable {
