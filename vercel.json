@@ -1,4 +1,246 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/plant-excavators",
+      "destination": "/plant-hire/excavators",
+      "permanent": true
+    },
+    {
+      "source": "/plant-forklift-truck",
+      "destination": "/plant-hire/forklift-truck",
+      "permanent": true
+    },
+    {
+      "source": "/plant-dumpers",
+      "destination": "/plant-hire/dumpers",
+      "permanent": true
+    },
+    {
+      "source": "/plant-generators",
+      "destination": "/plant-hire/generators",
+      "permanent": true
+    },
+    {
+      "source": "/plant-compressors",
+      "destination": "/plant-hire/compressors",
+      "permanent": true
+    },
+    {
+      "source": "/plant-skid-steers",
+      "destination": "/plant-hire/skid-steers",
+      "permanent": true
+    },
+    {
+      "source": "/plant-rollers",
+      "destination": "/plant-hire/rollers",
+      "permanent": true
+    },
+    {
+      "source": "/plant-bowsers",
+      "destination": "/plant-hire/bowsers",
+      "permanent": true
+    },
+    {
+      "source": "/plant-chippers",
+      "destination": "/plant-hire/chippers",
+      "permanent": true
+    },
+    {
+      "source": "/plant-powered-access",
+      "destination": "/plant-hire/powered-access",
+      "permanent": true
+    },
+    {
+      "source": "/plant-compaction",
+      "destination": "/plant-hire/compaction",
+      "permanent": true
+    },
+    {
+      "source": "/plant-concreting",
+      "destination": "/plant-hire/concreting",
+      "permanent": true
+    },
+    {
+      "source": "/tool-cutting-grinding-fixing",
+      "destination": "/tool-hire/cutting-grinding-fixing",
+      "permanent": true
+    },
+    {
+      "source": "/tool-generators",
+      "destination": "/tool-hire/generators",
+      "permanent": true
+    },
+    {
+      "source": "/tool-lighting-leads-safety",
+      "destination": "/tool-hire/lighting-leads-safety",
+      "permanent": true
+    },
+    {
+      "source": "/tool-cleaning",
+      "destination": "/tool-hire/cleaning",
+      "permanent": true
+    },
+    {
+      "source": "/tool-lifting",
+      "destination": "/tool-hire/lifting",
+      "permanent": true
+    },
+    {
+      "source": "/tool-heating-plumbing",
+      "destination": "/tool-hire/heating-plumbing",
+      "permanent": true
+    },
+    {
+      "source": "/tool-ground-care",
+      "destination": "/tool-hire/ground-care",
+      "permanent": true
+    },
+    {
+      "source": "/tool-laser-levels",
+      "destination": "/tool-hire/laser-levels",
+      "permanent": true
+    },
+    {
+      "source": "/tool-ladders",
+      "destination": "/tool-hire/ladders",
+      "permanent": true
+    },
+    {
+      "source": "/tool-breakers-drills",
+      "destination": "/tool-hire/breakers-drills",
+      "permanent": true
+    },
+    {
+      "source": "/tool-water-pumps",
+      "destination": "/tool-hire/water-pumps",
+      "permanent": true
+    },
+    {
+      "source": "/tool-decorating",
+      "destination": "/tool-hire/decorating",
+      "permanent": true
+    },
+    {
+      "source": "/plant-excavators.html",
+      "destination": "/plant-hire/excavators",
+      "permanent": true
+    },
+    {
+      "source": "/plant-forklift-truck.html",
+      "destination": "/plant-hire/forklift-truck",
+      "permanent": true
+    },
+    {
+      "source": "/plant-dumpers.html",
+      "destination": "/plant-hire/dumpers",
+      "permanent": true
+    },
+    {
+      "source": "/plant-generators.html",
+      "destination": "/plant-hire/generators",
+      "permanent": true
+    },
+    {
+      "source": "/plant-compressors.html",
+      "destination": "/plant-hire/compressors",
+      "permanent": true
+    },
+    {
+      "source": "/plant-skid-steers.html",
+      "destination": "/plant-hire/skid-steers",
+      "permanent": true
+    },
+    {
+      "source": "/plant-rollers.html",
+      "destination": "/plant-hire/rollers",
+      "permanent": true
+    },
+    {
+      "source": "/plant-bowsers.html",
+      "destination": "/plant-hire/bowsers",
+      "permanent": true
+    },
+    {
+      "source": "/plant-chippers.html",
+      "destination": "/plant-hire/chippers",
+      "permanent": true
+    },
+    {
+      "source": "/plant-powered-access.html",
+      "destination": "/plant-hire/powered-access",
+      "permanent": true
+    },
+    {
+      "source": "/plant-compaction.html",
+      "destination": "/plant-hire/compaction",
+      "permanent": true
+    },
+    {
+      "source": "/plant-concreting.html",
+      "destination": "/plant-hire/concreting",
+      "permanent": true
+    },
+    {
+      "source": "/tool-cutting-grinding-fixing.html",
+      "destination": "/tool-hire/cutting-grinding-fixing",
+      "permanent": true
+    },
+    {
+      "source": "/tool-generators.html",
+      "destination": "/tool-hire/generators",
+      "permanent": true
+    },
+    {
+      "source": "/tool-lighting-leads-safety.html",
+      "destination": "/tool-hire/lighting-leads-safety",
+      "permanent": true
+    },
+    {
+      "source": "/tool-cleaning.html",
+      "destination": "/tool-hire/cleaning",
+      "permanent": true
+    },
+    {
+      "source": "/tool-lifting.html",
+      "destination": "/tool-hire/lifting",
+      "permanent": true
+    },
+    {
+      "source": "/tool-heating-plumbing.html",
+      "destination": "/tool-hire/heating-plumbing",
+      "permanent": true
+    },
+    {
+      "source": "/tool-ground-care.html",
+      "destination": "/tool-hire/ground-care",
+      "permanent": true
+    },
+    {
+      "source": "/tool-laser-levels.html",
+      "destination": "/tool-hire/laser-levels",
+      "permanent": true
+    },
+    {
+      "source": "/tool-ladders.html",
+      "destination": "/tool-hire/ladders",
+      "permanent": true
+    },
+    {
+      "source": "/tool-breakers-drills.html",
+      "destination": "/tool-hire/breakers-drills",
+      "permanent": true
+    },
+    {
+      "source": "/tool-water-pumps.html",
+      "destination": "/tool-hire/water-pumps",
+      "permanent": true
+    },
+    {
+      "source": "/tool-decorating.html",
+      "destination": "/tool-hire/decorating",
+      "permanent": true
+    }
+  ]
 }
