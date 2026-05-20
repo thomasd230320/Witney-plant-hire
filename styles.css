@@ -472,10 +472,11 @@ select:focus-visible,
   position: relative;
   color: #ECECEC;
   text-transform: uppercase;
-  letter-spacing: 1.6px;
-  font-size: 13.5px;
-  font-weight: 700;
+  letter-spacing: 2.4px;
+  font-size: 12.5px;
+  font-weight: 800;
   padding: 8px 2px;
+  transition: color 0.2s var(--ease);
 }
 
 .main-nav a::after {
@@ -795,9 +796,10 @@ select:focus-visible,
   gap: 8px;
   list-style: none;
   margin: 0;
-  padding: 14px 0;
+  padding: 18px 0;
   text-transform: uppercase;
-  letter-spacing: 1.2px;
+  letter-spacing: 2px;
+  font-weight: 700;
 }
 
 .breadcrumb li {
@@ -1026,16 +1028,26 @@ select:focus-visible,
 }
 
 .card-subtitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--sans);
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 2.4px;
   color: var(--accent);
-  font-weight: 700;
+  font-weight: 800;
   font-size: 11px;
   margin: 0;
-  opacity: 0.85;
+  opacity: 0.9;
   transform: translateY(4px);
   transition: transform 0.4s var(--spring), opacity 0.4s var(--ease);
+}
+.card-subtitle::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 2px;
+  background: var(--accent);
 }
 
 .card:hover .card-subtitle,
@@ -1046,15 +1058,17 @@ select:focus-visible,
 
 .card-body h3 {
   color: #F6F6F6;
-  font-size: 26px;
+  font-family: var(--display);
+  font-size: clamp(28px, 3.2vw, 38px);
   font-weight: 400;
-  letter-spacing: 0.02em;
-  line-height: 1.05;
-  margin: 2px 0 0;
+  letter-spacing: var(--tracking-tight);
+  line-height: 0.98;
+  margin: 8px 0 0;
+  text-wrap: balance;
 }
 
 .card--feature .card-body h3 {
-  font-size: clamp(30px, 3vw, 44px);
+  font-size: clamp(38px, 4.4vw, 56px);
 }
 
 /* Reveal-on-hover deeper context */
@@ -1499,23 +1513,38 @@ select:focus-visible,
   background: var(--brand-deep);
   color: #9fb1ad;
   font-size: 15px;
-  padding: 70px 0 0;
+  padding: clamp(72px, 10vw, 110px) 0 0;
+  position: relative;
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent);
+  opacity: 0.9;
 }
 
 .footer-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 48px;
+  gap: clamp(28px, 5vw, 64px);
 }
 
 .site-footer h3 {
   color: #fff;
-  font-size: 15px;
-  text-transform: uppercase;
-  letter-spacing: 1.8px;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  text-transform: none;
   margin: 0 0 22px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid var(--brand-mid);
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .site-footer ul {
@@ -1540,28 +1569,46 @@ select:focus-visible,
 
 .site-footer address {
   font-style: normal;
-  line-height: 2;
+  line-height: 1.95;
 }
 
 .site-footer address a {
   color: var(--accent);
 }
 
+/* Editorial phone treatment for footer column 1 — biggest visual element */
+.site-footer .footer-news + .footer-cta-call,
+.site-footer .footer-cta-call {
+  display: block;
+  margin-top: 8px;
+}
+
 .sub-footer {
-  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 28px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: 56px;
-  padding: 26px 0;
+  margin-top: clamp(56px, 8vw, 96px);
+  padding: 28px 0;
   font-size: 12.5px;
   color: #7c8e8a;
   font-family: var(--sans);
 }
 
+.sub-footer p { margin: 0; }
+
 .sub-footer .tagline {
   color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 1.4px;
-  font-weight: 700;
+  font-weight: 800;
+  font-size: 11.5px;
+}
+
+@media (max-width: 760px) {
+  .sub-footer { justify-content: center; text-align: center; }
 }
 
 /* ===================================================================
