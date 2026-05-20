@@ -45,6 +45,27 @@
   --spring: cubic-bezier(0.34, 1.46, 0.5, 1);
   --spring-soft: cubic-bezier(0.33, 1.12, 0.5, 1);
   --maxw: 1240px;
+
+  /* ---- Editorial type scale (fluid via clamp) ---- */
+  --type-display: clamp(3rem, 9vw, 8.5rem);
+  --type-h1:      clamp(2.5rem, 6vw, 5.5rem);
+  --type-h2:      clamp(1.8rem, 3.6vw, 3.2rem);
+  --type-h3:      clamp(1.25rem, 2vw, 1.55rem);
+  --type-body:    16px;
+  --type-eyebrow: 11.5px;
+  --type-num:     clamp(4rem, 12vw, 9rem);
+  --tracking-tight: -0.025em;
+
+  /* ---- Editorial spacing scale ---- */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 32px;
+  --space-lg: 64px;
+  --space-xl: 112px;
+  --space-xxl: 160px;
+  --section-pad-y: clamp(72px, 12vw, 144px);
+
+  --shadow-edit: 0 36px 80px -36px rgba(15, 23, 42, 0.4);
 }
 
 * {
@@ -610,13 +631,14 @@ select:focus-visible,
 
 .hero-title h1 {
   color: #fff;
-  font-size: clamp(2.5rem, 8.5vw, 7.6rem);
+  font-size: var(--type-display);
   font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  line-height: 0.96;
+  letter-spacing: var(--tracking-tight);
+  line-height: 0.92;
   text-align: center;
   margin: 0;
+  text-wrap: balance;
 }
 
 .hero-title h1::after {
@@ -720,22 +742,24 @@ select:focus-visible,
 .trust-item {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 28px 20px;
+  gap: 6px;
+  padding: 44px 20px;
   text-align: center;
 }
 
 .trust-item strong {
   font-family: var(--display);
   font-weight: 400;
-  font-size: 27px;
-  letter-spacing: 0.03em;
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
+  line-height: 0.92;
+  letter-spacing: var(--tracking-tight);
   color: var(--accent);
 }
 
 .trust-item span {
   font-family: var(--sans);
-  font-size: 12.5px;
+  font-size: 12px;
+  letter-spacing: 1.5px;
   color: #c7d0dc;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -782,7 +806,7 @@ select:focus-visible,
 
 /* ---- Intro block ---- */
 .intro {
-  padding: 96px 0;
+  padding: var(--section-pad-y) 0;
 }
 
 .intro-inner {
@@ -792,11 +816,12 @@ select:focus-visible,
 .intro h1,
 .intro h2 {
   color: var(--brand);
-  font-size: clamp(2.8rem, 6vw, 5.4rem);
+  font-size: var(--type-h1);
   font-weight: 400;
-  letter-spacing: 0.02em;
-  line-height: 1;
-  margin: 0 0 16px;
+  letter-spacing: var(--tracking-tight);
+  line-height: 0.96;
+  margin: 0 0 18px;
+  text-wrap: balance;
 }
 
 .intro .subhead {
@@ -914,7 +939,7 @@ select:focus-visible,
   background:
     radial-gradient(1100px 460px at 88% -8%, var(--brand-soft), transparent),
     var(--surface-soft);
-  padding: 104px 0;
+  padding: var(--section-pad-y) 0;
   position: relative;
 }
 
@@ -2353,23 +2378,28 @@ select:focus-visible,
   font-family: var(--sans);
   text-transform: uppercase;
   letter-spacing: 3px;
-  font-size: 13px;
-  font-weight: 700;
+  font-size: var(--type-eyebrow);
+  font-weight: 800;
   color: var(--accent-dark);
   text-align: center;
-  margin: 0 0 8px;
+  margin: 0 0 14px;
 }
 
 .section-title {
   text-align: center;
   color: var(--brand);
-  font-size: clamp(2.2rem, 4.6vw, 3.8rem);
-  margin: 0 0 48px;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: var(--type-h1);
+  line-height: 0.96;
+  letter-spacing: var(--tracking-tight);
+  margin: 0 0 56px;
+  text-wrap: balance;
 }
 
 /* ---- How hire works ---- */
 .steps-section {
-  padding: 96px 0;
+  padding: var(--section-pad-y) 0;
   background: var(--surface);
 }
 
@@ -2407,7 +2437,7 @@ select:focus-visible,
 
 /* ---- Customer reviews ---- */
 .reviews-section {
-  padding: 96px 0;
+  padding: var(--section-pad-y) 0;
   background:
     radial-gradient(900px 380px at 12% -10%, var(--brand-soft), transparent),
     var(--surface-soft);
@@ -2913,7 +2943,7 @@ select:focus-visible,
 
 /* ---- FAQ section ---- */
 .faq-section {
-  padding: 16px 0 100px;
+  padding: 16px 0 var(--section-pad-y);
 }
 
 .faq-list {
@@ -3601,3 +3631,194 @@ select:focus-visible,
     justify-content: center;
   }
 }
+
+/* ============================================================
+   PHASE 1 — Editorial building blocks (Exaggerated Minimalism)
+   Reusable classes shared across hero, sections and statement
+   blocks. Pure CSS; no markup changes required to take effect.
+   ============================================================ */
+
+/* Eyebrow with a rule: a tiny orange dash before uppercase text.
+   Use for section eyebrows on a light background. */
+.eyebrow-rule {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: var(--type-eyebrow);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+  margin: 0 0 18px;
+}
+.eyebrow-rule::before {
+  content: "";
+  display: inline-block;
+  width: 36px;
+  height: 2px;
+  background: var(--accent);
+}
+
+/* Massive Bebas numeral used as a graphic anchor next to step copy. */
+.section-number {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: var(--type-num);
+  line-height: 0.85;
+  letter-spacing: var(--tracking-tight);
+  color: var(--accent);
+  display: block;
+}
+
+/* Full-bleed dark statement band: one oversized line + small caption. */
+.statement {
+  background: var(--brand-deep);
+  color: #fff;
+  padding: var(--section-pad-y) 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.statement::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 60% at 50% 60%, rgba(236, 99, 34, 0.18), transparent 70%);
+  pointer-events: none;
+}
+.statement-inner {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.statement h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: var(--type-display);
+  line-height: 0.92;
+  letter-spacing: var(--tracking-tight);
+  margin: 0;
+  text-wrap: balance;
+}
+.statement .statement-caption {
+  margin: 28px auto 32px;
+  max-width: 640px;
+  font-family: var(--sans);
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.55;
+}
+.statement .statement-cta {
+  display: inline-flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Editorial pull-quote treatment. Single-column block, no card, oversized
+   italic quote with a large left-aligned " glyph. */
+.pull-quote {
+  position: relative;
+  padding: 36px 12px 24px;
+  margin: 0;
+}
+.pull-quote::before {
+  content: "\201C";
+  position: absolute;
+  top: -32px;
+  left: -10px;
+  font-family: var(--display);
+  font-size: clamp(6rem, 14vw, 10rem);
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.16;
+  pointer-events: none;
+}
+.pull-quote blockquote {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.8vw, 2.4rem);
+  line-height: 1.12;
+  letter-spacing: 0.01em;
+  color: var(--brand);
+  margin: 0 0 18px;
+  text-wrap: balance;
+  font-style: normal;
+}
+.pull-quote figcaption {
+  font-family: var(--sans);
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pull-quote figcaption strong {
+  color: var(--brand);
+  font-weight: 800;
+  letter-spacing: 0.4px;
+}
+.pull-quote .review-stars {
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: 12px;
+  opacity: 0.7;
+}
+
+/* Asymmetric image+text row. Default: image left 60% / text right 40%.
+   Add .feature-row--flip to swap sides. Stacks below 760px. */
+.feature-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: clamp(28px, 5vw, 80px);
+  align-items: center;
+  padding: var(--space-lg) 0;
+}
+.feature-row--flip { grid-template-columns: 1fr 1.5fr; }
+.feature-row--flip .feature-row-media { order: 2; }
+.feature-row-media img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  display: block;
+}
+.feature-row-text h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: var(--type-h1);
+  line-height: 0.95;
+  letter-spacing: var(--tracking-tight);
+  color: var(--brand);
+  margin: 0 0 18px;
+}
+@media (max-width: 760px) {
+  .feature-row, .feature-row--flip {
+    grid-template-columns: 1fr;
+    padding: var(--space-md) 0;
+  }
+  .feature-row--flip .feature-row-media { order: 0; }
+}
+
+/* Two-up split band: e.g. dark left half + light right half. */
+.split-band {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.split-band > * {
+  padding: clamp(40px, 7vw, 96px);
+}
+.split-band > .split-band-dark {
+  background: var(--brand-deep);
+  color: #fff;
+}
+.split-band > .split-band-dark h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: var(--type-h1);
+  line-height: 0.96;
+  letter-spacing: var(--tracking-tight);
+  margin: 0 0 18px;
+}
+@media (max-width: 760px) { .split-band { grid-template-columns: 1fr; } }
