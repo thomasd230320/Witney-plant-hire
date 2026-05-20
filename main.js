@@ -53,8 +53,8 @@
     mbar.setAttribute("aria-label", "Quick contact");
     mbar.innerHTML =
       '<a href="tel:+441993708020">' + phoneIcon + "<span>Call Us</span></a>" +
-      '<a href="contact.html">' + quoteIcon + "<span>Get a Quote</span></a>" +
-      '<a href="basket.html">' + cartIcon +
+      '<a href="/contact">' + quoteIcon + "<span>Get a Quote</span></a>" +
+      '<a href="/basket">' + cartIcon +
       '<span class="mobile-bar-count" data-basket-count aria-label="items in basket">0</span>' +
       "<span>Basket</span></a>";
     document.body.appendChild(mbar);

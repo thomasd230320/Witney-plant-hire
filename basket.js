@@ -507,9 +507,9 @@
       if (!b.length) {
         contents.innerHTML =
           '<p class="basket-empty">Your basket is empty. ' +
-          'Browse our <a href="plant-hire.html">plant</a>, ' +
-          '<a href="tool-hire.html">tools</a> and ' +
-          '<a href="services.html">services</a> to add equipment.</p>';
+          'Browse our <a href="/plant-hire">plant</a>, ' +
+          '<a href="/tool-hire">tools</a> and ' +
+          '<a href="/services">services</a> to add equipment.</p>';
         refreshGate();
         return;
       }
