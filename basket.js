@@ -3,6 +3,20 @@
 (function () {
   "use strict";
 
+  // ===========================================================
+  // FEATURE FLAG — shop / basket UI
+  //   Set to true to expose the basket-and-checkout flow in the
+  //   header, sticky mobile bar, catalogue and quick-view.
+  //   When false, basket.js still loads (so /basket.html works
+  //   directly), but all "Add to basket" affordances are hidden
+  //   via a `shop-disabled` class on <html>.
+  // ===========================================================
+  var SHOP_ENABLED = false;
+  window.WPH_SHOP_ENABLED = SHOP_ENABLED;
+  if (!SHOP_ENABLED) {
+    document.documentElement.classList.add("shop-disabled");
+  }
+
   var BASKET_KEY = "wph_basket";
   var USER_KEY = "wph_user";
 

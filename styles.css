@@ -374,23 +374,51 @@ select:focus-visible,
   color: var(--accent);
 }
 
+.logo {
+  gap: 14px;
+}
+
+.logo .chevrons {
+  font-size: 32px;
+  letter-spacing: -7px;
+}
+
 .logo .wordmark {
-  font-weight: 800;
-  font-size: 22px;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 26px;
   color: #F4F4F4;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
+  letter-spacing: 1.6px;
+  line-height: 1;
+  position: relative;
+  padding-left: 14px;
   transition: font-size 0.3s var(--ease);
 }
 
+.logo .wordmark::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8%;
+  bottom: 8%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.28);
+}
+
 .site-header.scrolled .logo .wordmark {
-  font-size: 19px;
+  font-size: 22px;
 }
 
 .logo .wordmark sup {
-  font-size: 0.48em;
-  color: var(--accent-dark);
-  letter-spacing: 1px;
+  font-family: var(--sans);
+  font-size: 0.42em;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-left: 5px;
+  position: relative;
+  top: -0.6em;
 }
 
 /* ---- Main nav ---- */
@@ -3023,4 +3051,55 @@ select:focus-visible,
 
 .js .catalog-block li.hireable {
   animation: wph-card-in 0.4s var(--ease) both;
+}
+
+/* ---- Feature flag: hide basket/shop UI when SHOP_ENABLED is false ---- */
+.shop-disabled .nav-basket,
+.shop-disabled .mobile-bar a[href*="basket"],
+.shop-disabled .add-btn,
+.shop-disabled #qv-add {
+  display: none !important;
+}
+
+/* ---- Accreditations & partners strip (footer) ---- */
+.trust-strip {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 24px 0 28px;
+  margin-bottom: 32px;
+}
+
+.trust-strip-title {
+  margin: 0 0 16px;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+.trust-strip-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 18px;
+}
+
+.trust-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 110px;
+  height: 46px;
+  padding: 0 20px;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 4px;
 }
