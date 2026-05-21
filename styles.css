@@ -3982,3 +3982,52 @@ select:focus-visible,
   margin: 0 0 18px;
 }
 @media (max-width: 760px) { .split-band { grid-template-columns: 1fr; } }
+
+/* ---- Quick Facts panel (GEO-friendly extractable info card) ---- */
+.quick-facts {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 24px 28px 26px;
+  margin: 32px 0;
+  font-family: var(--sans);
+  box-shadow: var(--shadow-sm);
+}
+.quick-facts h3 {
+  margin: 0 0 16px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+}
+.quick-facts dl {
+  display: grid;
+  grid-template-columns: minmax(120px, 180px) 1fr;
+  column-gap: 24px;
+  row-gap: 10px;
+  margin: 0;
+}
+.quick-facts dt {
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  color: var(--brand);
+}
+.quick-facts dd {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.quick-facts dd a {
+  color: var(--accent-dark);
+  font-weight: 700;
+}
+@media (max-width: 640px) {
+  .quick-facts dl { grid-template-columns: 1fr; row-gap: 4px; }
+  .quick-facts dt { margin-top: 6px; font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-soft); }
+  .quick-facts dd { font-size: 15px; }
+}
