@@ -575,8 +575,16 @@ select:focus-visible,
 }
 
 .hero.interior {
-  min-height: 360px;
+  min-height: 340px;
   padding: 128px 24px 56px;
+  background:
+    radial-gradient(1000px 440px at 78% -24%, #2c2c33, transparent),
+    var(--brand-deep);
+}
+
+/* Interior pages use a clean dark brand header — no hero photo */
+.hero.interior img {
+  display: none;
 }
 
 .hero img {
@@ -1334,6 +1342,15 @@ select:focus-visible,
   color: var(--brand) !important;
 }
 
+.contact-form {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+  padding: 28px 30px 32px;
+  margin-top: 24px;
+}
+
 .contact-form label {
   display: block;
   font-family: var(--sans);
@@ -1343,6 +1360,10 @@ select:focus-visible,
   text-transform: uppercase;
   margin: 22px 0 8px;
   color: var(--brand);
+}
+
+.contact-form label:first-of-type {
+  margin-top: 0;
 }
 
 .contact-form input,
@@ -1356,6 +1377,11 @@ select:focus-visible,
   background: var(--surface-tint);
   transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease),
     background 0.2s var(--ease);
+}
+
+.contact-form input:hover,
+.contact-form textarea:hover {
+  border-color: var(--brand-mid);
 }
 
 .contact-form input:focus,
@@ -1396,10 +1422,24 @@ select:focus-visible,
   margin-top: 26px;
 }
 
-.map-placeholder img {
+.map-placeholder iframe {
+  display: block;
   width: 100%;
+  height: 290px;
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
+}
+
+.map-placeholder .map-link {
+  display: inline-block;
+  margin-top: 10px;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--accent-dark);
 }
 
 /* ---- News list ---- */
