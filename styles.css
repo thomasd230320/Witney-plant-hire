@@ -2971,14 +2971,41 @@ select:focus-visible,
   }
 }
 
-/* ---- Mobile home hero: revert to cover crop and hide overlay text ---- */
+/* ---- Mobile home hero ---- */
 @media (max-width: 760px) {
-  /* Hide the headline, eyebrow and tagline that sit over the banner;
-     keep the search bar and CTAs so the hero still works */
-  .hero:not(.interior) .hero-eyebrow,
-  .hero:not(.interior) h1,
+  /* Keep the headline visible on mobile — stronger overlay for legibility */
+  .hero:not(.interior)::after {
+    background: linear-gradient(
+      180deg,
+      rgba(15, 23, 42, 0.6) 0%,
+      rgba(15, 23, 42, 0.72) 55%,
+      rgba(15, 23, 42, 0.86) 100%
+    );
+  }
+
+  .hero:not(.interior) h1 {
+    font-size: clamp(2.1rem, 8.7vw, 3.1rem);
+    line-height: 1;
+  }
+
   .hero:not(.interior) .hero-tagline {
-    display: none;
+    font-size: 15px;
+    margin-top: 12px;
+  }
+
+  .hero:not(.interior) .hero-search {
+    margin-top: 20px;
+  }
+
+  .hero:not(.interior) .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .hero:not(.interior) .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
   }
 
   /* Utility bar: drop the (now-duplicated) phone number, right-align the links */
